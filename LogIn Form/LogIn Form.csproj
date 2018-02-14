@@ -91,5 +91,14 @@
   <ItemGroup>
     <None Include="Resources\minimize_hover.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LogoNewFont.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Background2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LogoNewFontTransparent.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

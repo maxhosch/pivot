@@ -62,10 +62,14 @@ namespace LogIn_Form
             this.Close();
         }
 
-        private void pictureBoxClose_MouseHover(object sender, EventArgs e)
+        private void pictureBoxClose_MouseEnter(object sender, EventArgs e)
         {
-            //mouseDown = false;
             this.pictureBoxClose.Image = global::LogIn_Form.Properties.Resources.closeXhover;
+        }
+
+        private void pictureBoxClose_MouseLeave(object sender, EventArgs e)
+        {
+            this.pictureBoxClose.Image = global::LogIn_Form.Properties.Resources.closeX;
         }
 
 
@@ -76,10 +80,14 @@ namespace LogIn_Form
             this.WindowState = FormWindowState.Minimized;
         }
 
-        private void pictureBoxMinimize_MouseHover(object sender, EventArgs e)
+        private void pictureBoxMinimize_MouseEnter(object sender, EventArgs e)
         {
-            //mouseDown = false;
             this.pictureBoxMinimize.Image = global::LogIn_Form.Properties.Resources.minimize_hover;
+        }
+
+        private void pictureBoxMinimize_MouseLeave(object sender, EventArgs e)
+        {
+            this.pictureBoxMinimize.Image = global::LogIn_Form.Properties.Resources.minimize_;
         }
 
 

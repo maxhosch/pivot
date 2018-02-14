@@ -63,6 +63,16 @@ namespace LogIn_Form.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Background2 {
+            get {
+                object obj = ResourceManager.GetObject("Background2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap closeX {
             get {
                 object obj = ResourceManager.GetObject("closeX", resourceCulture);
@@ -76,6 +86,26 @@ namespace LogIn_Form.Properties {
         internal static System.Drawing.Bitmap closeXhover {
             get {
                 object obj = ResourceManager.GetObject("closeXhover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LogoNewFont {
+            get {
+                object obj = ResourceManager.GetObject("LogoNewFont", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LogoNewFontTransparent {
+            get {
+                object obj = ResourceManager.GetObject("LogoNewFontTransparent", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
