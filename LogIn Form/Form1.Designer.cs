@@ -37,11 +37,14 @@
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.pictureBoxPassword = new System.Windows.Forms.PictureBox();
             this.pictureBoxEmail = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPassword)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEmail)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxEmail
@@ -66,16 +69,17 @@
             this.textBoxPassword.ForeColor = System.Drawing.SystemColors.Window;
             this.textBoxPassword.Location = new System.Drawing.Point(25, 246);
             this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.UseSystemPasswordChar = true;
             this.textBoxPassword.Size = new System.Drawing.Size(304, 18);
             this.textBoxPassword.TabIndex = 3;
+            this.textBoxPassword.UseSystemPasswordChar = true;
             this.textBoxPassword.GotFocus += new System.EventHandler(this.textBoxPassword_GotFocus);
             this.textBoxPassword.LostFocus += new System.EventHandler(this.textBoxPassword_LostFocus);
             this.textBoxPassword.MouseEnter += new System.EventHandler(this.textBoxPassword_MouseEnter);
             // 
             // buttonLogIn
             // 
-            this.buttonLogIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonLogIn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(136)))), ((int)(((byte)(43)))));
+            this.buttonLogIn.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonLogIn.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonLogIn.ForeColor = System.Drawing.Color.White;
             this.buttonLogIn.Location = new System.Drawing.Point(25, 335);
@@ -83,7 +87,8 @@
             this.buttonLogIn.Size = new System.Drawing.Size(304, 30);
             this.buttonLogIn.TabIndex = 4;
             this.buttonLogIn.Text = "Log In";
-            this.buttonLogIn.UseVisualStyleBackColor = true;
+            this.buttonLogIn.UseVisualStyleBackColor = false;
+            this.buttonLogIn.Click += new System.EventHandler(this.buttonLogIn_Click);
             // 
             // pictureBoxMinimize
             // 
@@ -150,12 +155,34 @@
             this.pictureBoxEmail.MouseEnter += new System.EventHandler(this.pictureBoxEmail_MouseEnter);
             this.pictureBoxEmail.MouseLeave += new System.EventHandler(this.pictureBoxEmail_MouseLeave);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label1.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.Window;
+            this.label1.Location = new System.Drawing.Point(70, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(148, 18);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Account name required";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(20, 154);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(314, 30);
+            this.panel1.TabIndex = 11;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::LogIn_Form.Properties.Resources.Background2;
             this.ClientSize = new System.Drawing.Size(355, 510);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBoxMinimize);
             this.Controls.Add(this.pictureBoxClose);
             this.Controls.Add(this.pictureBoxLogo);
@@ -173,6 +200,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPassword)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEmail)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -188,6 +217,8 @@
         private System.Windows.Forms.PictureBox pictureBoxMinimize;
         private System.Windows.Forms.PictureBox pictureBoxPassword;
         private System.Windows.Forms.PictureBox pictureBoxEmail;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

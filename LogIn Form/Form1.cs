@@ -14,12 +14,13 @@ namespace LogIn_Form
     public partial class Form1 : Form
     {
 
-        ///Variables
-        //int bgColor = 35;
+        //Variables
         private bool mouseDown;
         private Point lastLocation;
         private bool textBoxEmailFocused;
         private bool textBoxPasswordFocused;
+        String Email;
+        String Password;
 
 
         ///Create Stuff
@@ -39,7 +40,7 @@ namespace LogIn_Form
         {
             InitializeComponent();
             this.BackColor = bgColor;
-            this.buttonLogIn.BackColor = buttonLogInBgColor;
+            //this.buttonLogIn.BackColor = buttonLogInBgColor;
             SendMessage(textBoxEmail.Handle, 0x1501, 1, "E-Mail");
             SendMessage(textBoxPassword.Handle, 0x1501, 1, "Password");
         }
@@ -179,6 +180,18 @@ namespace LogIn_Form
             if (!textBoxPasswordFocused)
             {
                 this.pictureBoxPassword.Image = global::LogIn_Form.Properties.Resources.TextBoxHover;
+            }
+        }
+        //
+        //buttonLogIn
+        //
+        private void buttonLogIn_Click(object sender, EventArgs e)
+        {
+            String Email = this.textBoxEmail.Text;
+            String Password = this.textBoxPassword.Text;
+            if (String.IsNullOrEmpty(Email) || String.IsNullOrEmpty(Password))
+            {
+                Console.WriteLine("Account name required");
             }
         }
     }
