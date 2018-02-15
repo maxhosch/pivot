@@ -66,7 +66,7 @@
             this.textBoxPassword.ForeColor = System.Drawing.SystemColors.Window;
             this.textBoxPassword.Location = new System.Drawing.Point(25, 246);
             this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.PasswordChar = '1';
+            this.textBoxPassword.UseSystemPasswordChar = true;
             this.textBoxPassword.Size = new System.Drawing.Size(304, 18);
             this.textBoxPassword.TabIndex = 3;
             this.textBoxPassword.GotFocus += new System.EventHandler(this.textBoxPassword_GotFocus);
