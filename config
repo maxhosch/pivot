@@ -1,0 +1,11 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = true
+	symlinks = false
+	ignorecase = true
+	sharedrepository = 1
+[remote "origin"]
+	url = C:/Users/justu/source/repos/LogIn Form/./
+[receive]
+	denyNonFastforwards = true

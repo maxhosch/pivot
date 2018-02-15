@@ -73,9 +73,9 @@ namespace LogIn_Form.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap closeX {
+        internal static System.Drawing.Bitmap Close {
             get {
-                object obj = ResourceManager.GetObject("closeX", resourceCulture);
+                object obj = ResourceManager.GetObject("Close", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace LogIn_Form.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap closeXhover {
+        internal static System.Drawing.Bitmap CloseHover {
             get {
-                object obj = ResourceManager.GetObject("closeXhover", resourceCulture);
+                object obj = ResourceManager.GetObject("CloseHover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace LogIn_Form.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap LogoNewFont {
+        internal static System.Drawing.Bitmap LogoLogInForm {
             get {
-                object obj = ResourceManager.GetObject("LogoNewFont", resourceCulture);
+                object obj = ResourceManager.GetObject("LogoLogInForm", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace LogIn_Form.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap LogoNewFontTransparent {
+        internal static System.Drawing.Bitmap Minimize {
             get {
-                object obj = ResourceManager.GetObject("LogoNewFontTransparent", resourceCulture);
+                object obj = ResourceManager.GetObject("Minimize", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,9 @@ namespace LogIn_Form.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap minimize_ {
+        internal static System.Drawing.Bitmap MinimizeHover {
             get {
-                object obj = ResourceManager.GetObject("minimize_", resourceCulture);
+                object obj = ResourceManager.GetObject("MinimizeHover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +123,29 @@ namespace LogIn_Form.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap minimize_hover {
+        internal static System.Drawing.Bitmap TextBox {
             get {
-                object obj = ResourceManager.GetObject("minimize_hover", resourceCulture);
+                object obj = ResourceManager.GetObject("TextBox", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TextBoxActivated {
+            get {
+                object obj = ResourceManager.GetObject("TextBoxActivated", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TextBoxHover {
+            get {
+                object obj = ResourceManager.GetObject("TextBoxHover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

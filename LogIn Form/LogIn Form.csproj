@@ -58,18 +58,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -80,25 +80,34 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\closeX.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\minimize_.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\closeXhover.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\minimize_hover.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\LogoNewFont.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Background2.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\LogoNewFontTransparent.png" />
+    <None Include="Resources\LogoLogInForm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Minimize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CloseHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MinimizeHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TextBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TextBox1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TextBoxActivated.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TextBoxHover.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

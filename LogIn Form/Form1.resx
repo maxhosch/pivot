@@ -117,4 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="pictureBoxPassword.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAToAAAAeCAYAAAC8CNLIAAAABGdBTUEAALGPC/xhBQAAANdJREFUeF7t
+        3SFuwEAMRcG9RaTQDd1VApL738yVC4p6gq8BIxkYP5l5zDlr713v+9b3fQARumndtuu6avTwPE+d51nH
+        cQBE6KZ129ZaNbp6Igck6rZ140afeP8tACToxgkdEE3ogHhCB8QTOiCe0AHxhA6IJ3RAPKED4gkdEE/o
+        gHhCB8QTOiCe0AHxhA6IJ3RAPKED4gkdEE/ogHhCB8QTOiCe0AHxhA6IJ3RAvN/QeWANpPp7YL33rvu+
+        xQ6I0k3rtq21asw5q2PX1esTDyBBN63bNuesH1BojSl1sFKxAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="pictureBoxEmail.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAToAAAAeCAYAAAC8CNLIAAAABGdBTUEAALGPC/xhBQAAANdJREFUeF7t
+        3SFuwEAMRcG9RaTQDd1VApL738yVC4p6gq8BIxkYP5l5zDlr713v+9b3fQARumndtuu6avTwPE+d51nH
+        cQBE6KZ129ZaNbp6Igck6rZ140afeP8tACToxgkdEE3ogHhCB8QTOiCe0AHxhA6IJ3RAPKED4gkdEE/o
+        gHhCB8QTOiCe0AHxhA6IJ3RAPKED4gkdEE/ogHhCB8QTOiCe0AHxhA6IJ3RAvN/QeWANpPp7YL33rvu+
+        xQ6I0k3rtq21asw5q2PX1esTDyBBN63bNuesH1BojSl1sFKxAAAAAElFTkSuQmCC
+</value>
+  </data>
 </root>

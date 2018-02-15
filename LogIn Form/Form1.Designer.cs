@@ -28,66 +28,66 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonClose = new System.Windows.Forms.Button();
-            this.buttonMinimize = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.textBoxEmail = new System.Windows.Forms.TextBox();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.buttonLogIn = new System.Windows.Forms.Button();
             this.pictureBoxMinimize = new System.Windows.Forms.PictureBox();
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
+            this.pictureBoxPassword = new System.Windows.Forms.PictureBox();
+            this.pictureBoxEmail = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPassword)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEmail)).BeginInit();
             this.SuspendLayout();
-            // 
-            // buttonClose
-            // 
-            this.buttonClose.Location = new System.Drawing.Point(0, 0);
-            this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(75, 23);
-            this.buttonClose.TabIndex = 8;
-            // 
-            // buttonMinimize
-            // 
-            this.buttonMinimize.Location = new System.Drawing.Point(0, 0);
-            this.buttonMinimize.Name = "buttonMinimize";
-            this.buttonMinimize.Size = new System.Drawing.Size(75, 23);
-            this.buttonMinimize.TabIndex = 9;
             // 
             // textBoxEmail
             // 
+            this.textBoxEmail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(23)))), ((int)(((byte)(23)))));
             this.textBoxEmail.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxEmail.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxEmail.Location = new System.Drawing.Point(30, 191);
+            this.textBoxEmail.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxEmail.ForeColor = System.Drawing.SystemColors.Window;
+            this.textBoxEmail.Location = new System.Drawing.Point(25, 196);
             this.textBoxEmail.Name = "textBoxEmail";
-            this.textBoxEmail.Size = new System.Drawing.Size(304, 20);
+            this.textBoxEmail.Size = new System.Drawing.Size(304, 18);
             this.textBoxEmail.TabIndex = 2;
+            this.textBoxEmail.GotFocus += new System.EventHandler(this.textBoxEmail_GotFocus);
+            this.textBoxEmail.LostFocus += new System.EventHandler(this.textBoxEmail_LostFocus);
+            this.textBoxEmail.MouseEnter += new System.EventHandler(this.textBoxEmail_MouseEnter);
             // 
             // textBoxPassword
             // 
+            this.textBoxPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(23)))), ((int)(((byte)(23)))));
             this.textBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxPassword.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPassword.Location = new System.Drawing.Point(30, 245);
+            this.textBoxPassword.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxPassword.ForeColor = System.Drawing.SystemColors.Window;
+            this.textBoxPassword.Location = new System.Drawing.Point(25, 246);
             this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.Size = new System.Drawing.Size(304, 20);
+            this.textBoxPassword.PasswordChar = '1';
+            this.textBoxPassword.Size = new System.Drawing.Size(304, 18);
             this.textBoxPassword.TabIndex = 3;
+            this.textBoxPassword.GotFocus += new System.EventHandler(this.textBoxPassword_GotFocus);
+            this.textBoxPassword.LostFocus += new System.EventHandler(this.textBoxPassword_LostFocus);
+            this.textBoxPassword.MouseEnter += new System.EventHandler(this.textBoxPassword_MouseEnter);
             // 
             // buttonLogIn
             // 
             this.buttonLogIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonLogIn.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonLogIn.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonLogIn.ForeColor = System.Drawing.Color.White;
-            this.buttonLogIn.Location = new System.Drawing.Point(30, 335);
+            this.buttonLogIn.Location = new System.Drawing.Point(25, 335);
             this.buttonLogIn.Name = "buttonLogIn";
-            this.buttonLogIn.Size = new System.Drawing.Size(304, 39);
+            this.buttonLogIn.Size = new System.Drawing.Size(304, 30);
             this.buttonLogIn.TabIndex = 4;
             this.buttonLogIn.Text = "Log In";
             this.buttonLogIn.UseVisualStyleBackColor = true;
             // 
             // pictureBoxMinimize
             // 
-            this.pictureBoxMinimize.Image = global::LogIn_Form.Properties.Resources.minimize_;
+            this.pictureBoxMinimize.Image = global::LogIn_Form.Properties.Resources.Minimize;
             this.pictureBoxMinimize.Location = new System.Drawing.Point(308, 12);
             this.pictureBoxMinimize.Name = "pictureBoxMinimize";
             this.pictureBoxMinimize.Size = new System.Drawing.Size(15, 15);
@@ -100,7 +100,7 @@
             // 
             // pictureBoxClose
             // 
-            this.pictureBoxClose.Image = global::LogIn_Form.Properties.Resources.closeX;
+            this.pictureBoxClose.Image = global::LogIn_Form.Properties.Resources.Close;
             this.pictureBoxClose.Location = new System.Drawing.Point(329, 12);
             this.pictureBoxClose.Name = "pictureBoxClose";
             this.pictureBoxClose.Size = new System.Drawing.Size(15, 15);
@@ -113,7 +113,7 @@
             // 
             // pictureBoxLogo
             // 
-            this.pictureBoxLogo.Image = global::LogIn_Form.Properties.Resources.LogoNewFontTransparent;
+            this.pictureBoxLogo.Image = global::LogIn_Form.Properties.Resources.LogoLogInForm;
             this.pictureBoxLogo.Location = new System.Drawing.Point(2, 2);
             this.pictureBoxLogo.Name = "pictureBoxLogo";
             this.pictureBoxLogo.Size = new System.Drawing.Size(350, 174);
@@ -123,6 +123,32 @@
             this.pictureBoxLogo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxLogo_MouseDown);
             this.pictureBoxLogo.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxLogo_MouseMove);
             this.pictureBoxLogo.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxLogo_MouseUp);
+            // 
+            // pictureBoxPassword
+            // 
+            this.pictureBoxPassword.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.pictureBoxPassword.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxPassword.Image")));
+            this.pictureBoxPassword.Location = new System.Drawing.Point(20, 240);
+            this.pictureBoxPassword.Name = "pictureBoxPassword";
+            this.pictureBoxPassword.Size = new System.Drawing.Size(314, 30);
+            this.pictureBoxPassword.TabIndex = 8;
+            this.pictureBoxPassword.TabStop = false;
+            this.pictureBoxPassword.Click += new System.EventHandler(this.pictureBoxPassword_Click);
+            this.pictureBoxPassword.MouseEnter += new System.EventHandler(this.pictureBoxPassword_MouseEnter);
+            this.pictureBoxPassword.MouseLeave += new System.EventHandler(this.pictureBoxPassword_MouseLeave);
+            // 
+            // pictureBoxEmail
+            // 
+            this.pictureBoxEmail.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.pictureBoxEmail.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxEmail.Image")));
+            this.pictureBoxEmail.Location = new System.Drawing.Point(20, 190);
+            this.pictureBoxEmail.Name = "pictureBoxEmail";
+            this.pictureBoxEmail.Size = new System.Drawing.Size(314, 30);
+            this.pictureBoxEmail.TabIndex = 9;
+            this.pictureBoxEmail.TabStop = false;
+            this.pictureBoxEmail.Click += new System.EventHandler(this.pictureBoxEmail_Click);
+            this.pictureBoxEmail.MouseEnter += new System.EventHandler(this.pictureBoxEmail_MouseEnter);
+            this.pictureBoxEmail.MouseLeave += new System.EventHandler(this.pictureBoxEmail_MouseLeave);
             // 
             // Form1
             // 
@@ -136,6 +162,8 @@
             this.Controls.Add(this.buttonLogIn);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.textBoxEmail);
+            this.Controls.Add(this.pictureBoxPassword);
+            this.Controls.Add(this.pictureBoxEmail);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
             this.Text = "TerraByte";
@@ -143,6 +171,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMinimize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPassword)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEmail)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -150,14 +180,14 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonClose;
-        private System.Windows.Forms.Button buttonMinimize;
         private System.Windows.Forms.TextBox textBoxEmail;
         private System.Windows.Forms.TextBox textBoxPassword;
         private System.Windows.Forms.Button buttonLogIn;
         private System.Windows.Forms.PictureBox pictureBoxLogo;
         private System.Windows.Forms.PictureBox pictureBoxClose;
         private System.Windows.Forms.PictureBox pictureBoxMinimize;
+        private System.Windows.Forms.PictureBox pictureBoxPassword;
+        private System.Windows.Forms.PictureBox pictureBoxEmail;
     }
 }
 
