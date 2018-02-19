@@ -37,14 +37,14 @@
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.pictureBoxPassword = new System.Windows.Forms.PictureBox();
             this.pictureBoxEmail = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.labelNoName = new System.Windows.Forms.Label();
+            this.panelNoName = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPassword)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEmail)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.panelNoName.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxEmail
@@ -155,26 +155,27 @@
             this.pictureBoxEmail.MouseEnter += new System.EventHandler(this.pictureBoxEmail_MouseEnter);
             this.pictureBoxEmail.MouseLeave += new System.EventHandler(this.pictureBoxEmail_MouseLeave);
             // 
-            // label1
+            // labelNoName
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label1.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.Window;
-            this.label1.Location = new System.Drawing.Point(70, 4);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(148, 18);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Account name required";
+            this.labelNoName.AutoSize = true;
+            this.labelNoName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelNoName.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNoName.ForeColor = System.Drawing.SystemColors.Window;
+            this.labelNoName.Location = new System.Drawing.Point(70, 5);
+            this.labelNoName.Name = "labelNoName";
+            this.labelNoName.Size = new System.Drawing.Size(148, 18);
+            this.labelNoName.TabIndex = 10;
+            this.labelNoName.Text = "Account name required";
             // 
-            // panel1
+            // panelNoName
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(20, 154);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(314, 30);
-            this.panel1.TabIndex = 11;
+            this.panelNoName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.panelNoName.Controls.Add(this.labelNoName);
+            this.panelNoName.Location = new System.Drawing.Point(20, 154);
+            this.panelNoName.Name = "panelNoName";
+            this.panelNoName.Size = new System.Drawing.Size(314, 30);
+            this.panelNoName.TabIndex = 11;
+            this.panelNoName.Visible = false;
             // 
             // Form1
             // 
@@ -182,7 +183,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::LogIn_Form.Properties.Resources.Background2;
             this.ClientSize = new System.Drawing.Size(355, 510);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panelNoName);
             this.Controls.Add(this.pictureBoxMinimize);
             this.Controls.Add(this.pictureBoxClose);
             this.Controls.Add(this.pictureBoxLogo);
@@ -200,8 +201,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPassword)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEmail)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panelNoName.ResumeLayout(false);
+            this.panelNoName.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -217,8 +218,8 @@
         private System.Windows.Forms.PictureBox pictureBoxMinimize;
         private System.Windows.Forms.PictureBox pictureBoxPassword;
         private System.Windows.Forms.PictureBox pictureBoxEmail;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label labelNoName;
+        private System.Windows.Forms.Panel panelNoName;
     }
 }
 

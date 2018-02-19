@@ -194,6 +194,7 @@ namespace LogIn_Form
             if (String.IsNullOrEmpty(Email) || String.IsNullOrEmpty(Password))
             {
                 Console.WriteLine("Account name required");
+                this.panelNoName.Visible = true;
             }
         }
     }
