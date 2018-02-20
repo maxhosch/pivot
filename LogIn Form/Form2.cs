@@ -32,7 +32,7 @@ namespace LogIn_Form
 
             var options = new OidcClientOptions
             {
-                Authority = "http://steamcommunity.com/openid",
+                Authority = "https://steamcommunity.com/openid",
                 ClientId = "native.hybrid",
                 Scope = "openid email api offline_access",
                 RedirectUri = "http://localhost/winforms.client",
@@ -45,7 +45,7 @@ namespace LogIn_Form
 
         private async void button1_ClickAsync(object sender, EventArgs e)
         {
-            var result = await _oidcClient.LoginAsync(DisplayMode.Visible);
+            var result = await _oidcClient.LoginAsync(DisplayMode.Visible); //new LoginRequest()
 
             if (result.IsError)
             {
@@ -69,7 +69,7 @@ namespace LogIn_Form
                 Console.WriteLine(sb.ToString());
 
                 _apiClient = new HttpClient(result.RefreshTokenHandler);
-                _apiClient.BaseAddress = new Uri("http://steamcommunity.com/openid");
+                _apiClient.BaseAddress = new Uri("https://steamcommunity.com/openid");
             }
         }
     }

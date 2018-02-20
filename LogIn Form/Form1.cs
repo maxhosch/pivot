@@ -196,6 +196,11 @@ namespace LogIn_Form
                 Console.WriteLine("Account name required");
                 this.panelNoName.Visible = true;
             }
+            else
+            {
+                Form form2 = new Form2();
+                form2.Show();
+            }
         }
     }
 }
