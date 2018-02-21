@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using DotNetOpenAuth.OAuth;
 using DotNetOpenAuth.OpenId.RelyingParty;
 
 namespace LogIn_Form
