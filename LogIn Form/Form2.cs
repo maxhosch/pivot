@@ -1,305 +1,51 @@
-﻿using IdentityModel.OidcClient;
-using IdentityModel.OidcClient.Browser;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net.Http;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Security.Permissions;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
+using DotNetOpenAuth.OAuth;
+using DotNetOpenAuth.OpenId.RelyingParty;
 
 namespace LogIn_Form
 {
     public partial class Form2 : Form
     {
-        //OpenId auth shit
+        //OpenId auth 
+        private static OpenIdRelyingParty relyingParty;
 
-        private OidcClient _oidcClient;
-        private HttpClient _apiClient;
+        static Form2()
+        {
+            relyingParty = new OpenIdRelyingParty();
+        }
 
         public Form2()
         {
             InitializeComponent();
-
-            //OpenId try
-
-            var options = new OidcClientOptions
-            {
-                Authority = "https://steamcommunity.com/openid",
-                ClientId = "native.hybrid",
-                Scope = "openid email api offline_access",
-                RedirectUri = "http://localhost/winforms.client",
-
-                Browser = new WinFormsEmbeddedBrowser()
-            };
-
-            _oidcClient = new OidcClient(options);
         }
 
-        private async void button1_ClickAsync(object sender, EventArgs e)
+        private void button1_ClickAsync(object sender, EventArgs e)
         {
-            var result = await _oidcClient.LoginAsync(DisplayMode.Visible); //new LoginRequest()
-
-            if (result.IsError)
+            var response = relyingParty.GetResponse();
+            if (response == null)
             {
-                MessageBox.Show(this, result.Error, "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine("Response is Null");
             }
             else
             {
-                Console.WriteLine(result.AccessToken);
-
-                var sb = new StringBuilder(128);
-                foreach (var claim in result.User.Claims)
+                switch (response.Status)
                 {
-                    sb.AppendLine($"{claim.Type}: {claim.Value}");
+                    case AuthenticationStatus.Canceled:
+                        Console.WriteLine("AuthenticationStatus.Canceled");
+                        break;
+                    case AuthenticationStatus.Failed:
+                        Console.WriteLine("AuthenticationStatus.Canceled");
+                        Console.WriteLine(response.Exception.Message);
+                        break;
+                    case AuthenticationStatus.Authenticated:
+                        Console.WriteLine("AuthenticationStatus.Authenticated");
+                        Console.WriteLine(response.FriendlyIdentifierForDisplay);
+                        break;
+                    default:
+                        Console.WriteLine("default");
+                        break;
                 }
-
-                if (!string.IsNullOrWhiteSpace(result.RefreshToken))
-                {
-                    sb.AppendLine($"refresh token: {result.RefreshToken}");
-                }
-
-                Console.WriteLine(sb.ToString());
-
-                _apiClient = new HttpClient(result.RefreshTokenHandler);
-                _apiClient.BaseAddress = new Uri("https://steamcommunity.com/openid");
-            }
-        }
-    }
-
-    public class WinFormsEmbeddedBrowser : IBrowser
-    {
-        private readonly Func<Form> _formFactory;
-
-        public WinFormsEmbeddedBrowser(Func<Form> formFactory)
-        {
-            _formFactory = formFactory;
-        }
-
-        public WinFormsEmbeddedBrowser(string title = "Authenticating ...", int width = 1024, int height = 768)
-            : this(() => new Form
-            {
-                Name = "WebAuthentication",
-                Text = title,
-                Width = width,
-                Height = height
-            })
-        { }
-
-        public async Task<BrowserResult> InvokeAsync(BrowserOptions options)
-        {
-            using (var form = _formFactory.Invoke())
-            using (var browser = new ExtendedWebBrowser()
-            {
-                Dock = DockStyle.Fill
-            })
-            {
-                var signal = new SemaphoreSlim(0, 1);
-
-                var result = new BrowserResult
-                {
-                    ResultType = BrowserResultType.UserCancel
-                };
-
-                form.FormClosed += (o, e) =>
-                {
-                    signal.Release();
-                };
-
-                browser.NavigateError += (o, e) =>
-                {
-                    e.Cancel = true;
-                    result.ResultType = BrowserResultType.HttpError;
-                    result.Error = e.StatusCode.ToString();
-                    signal.Release();
-                };
-
-                browser.BeforeNavigate2 += (o, e) =>
-                {
-                    if (e.Url.StartsWith(options.EndUrl))
-                    {
-                        e.Cancel = true;
-                        result.ResultType = BrowserResultType.Success;
-                        if (options.ResponseMode == OidcClientOptions.AuthorizeResponseMode.FormPost)
-                        {
-                            result.Response = Encoding.UTF8.GetString(e.PostData ?? new byte[] { });
-                        }
-                        else
-                        {
-                            result.Response = e.Url;
-                        }
-                        signal.Release();
-                    }
-                };
-
-                form.Controls.Add(browser);
-                browser.Show();
-
-                System.Threading.Timer timer = null;
-
-                form.Show();
-                browser.Navigate(options.StartUrl);
-
-                await signal.WaitAsync();
-                if (timer != null) timer.Change(Timeout.Infinite, Timeout.Infinite);
-
-                form.Hide();
-                browser.Hide();
-
-                return result;
-            }
-        }
-    }
-
-    internal class ExtendedWebBrowser : WebBrowser
-    {
-        private AxHost.ConnectionPointCookie _cookie;
-        private ExtendedWebBrowserEventHelper _helper;
-
-        [PermissionSet(SecurityAction.LinkDemand, Name = "FullTrust")]
-        protected override void CreateSink()
-        {
-            base.CreateSink();
-
-            _helper = new ExtendedWebBrowserEventHelper(this);
-            _cookie = new AxHost.ConnectionPointCookie(ActiveXInstance, _helper, typeof(DWebBrowserEvents2));
-        }
-
-        [PermissionSet(SecurityAction.LinkDemand, Name = "FullTrust")]
-        protected override void DetachSink()
-        {
-            if (_cookie != null)
-            {
-                _cookie.Disconnect();
-                _cookie = null;
-            }
-            base.DetachSink();
-        }
-
-        internal event EventHandler<BeforeNavigate2EventArgs> BeforeNavigate2;
-        internal event EventHandler<NavigateErrorEventArgs> NavigateError;
-
-        private void OnBeforeNavigate2(object pDisp, ref object url, ref object flags, ref object targetFrameName,
-            ref object postData, ref object headers, ref bool cancel)
-        {
-            var handler = BeforeNavigate2;
-            if (handler != null)
-            {
-                var args = new BeforeNavigate2EventArgs((string)url, (string)targetFrameName, (byte[])postData, (string)headers);
-                handler(this, args);
-                cancel = args.Cancel;
-            }
-        }
-
-        private void OnNavigateError(object pDisp, ref object url, ref object frame, ref object statusCode, ref bool cancel)
-        {
-            var handler = NavigateError;
-            if (handler != null)
-            {
-                var args = new NavigateErrorEventArgs((string)url, (string)frame, (int)statusCode);
-                handler(this, args);
-                cancel = args.Cancel;
-            }
-        }
-
-        internal class BeforeNavigate2EventArgs : EventArgs
-        {
-            private readonly string _url;
-            private readonly string _targetFrameName;
-            private readonly byte[] _postData;
-            private readonly string _headers;
-
-            public BeforeNavigate2EventArgs(string url, string targetFrameName, byte[] postData, string headers)
-            {
-                _url = url;
-                _targetFrameName = targetFrameName;
-                _postData = postData;
-                _headers = headers;
-                Cancel = false;
-            }
-
-            public string Url { get { return _url; } }
-            public string TargetFrameName { get { return _targetFrameName; } }
-            public byte[] PostData { get { return _postData; } }
-            public string Headers { get { return _headers; } }
-            public bool Cancel { get; set; }
-        }
-
-        internal class NavigateErrorEventArgs : EventArgs
-        {
-            private readonly string _url;
-            private readonly string _frame;
-            private int _statusCode;
-
-            public NavigateErrorEventArgs(string url, string frame, int statusCode)
-            {
-                _url = url;
-                _frame = frame;
-                _statusCode = statusCode;
-                Cancel = false;
-            }
-
-            public string Url { get { return _url; } }
-            public string Frame { get { return _frame; } }
-            public int StatusCode { get { return _statusCode; } }
-            public bool Cancel { get; set; }
-        }
-
-        [ComImport]
-        [Guid("34A715A0-6587-11D0-924A-0020AFC7AC4D")]
-        [InterfaceType(ComInterfaceType.InterfaceIsIDispatch)]
-        [TypeLibType(TypeLibTypeFlags.FHidden)]
-        private interface DWebBrowserEvents2
-        {
-            [PreserveSig]
-            [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-            [DispId(250)]
-            void BeforeNavigate2([In] [MarshalAs(UnmanagedType.IDispatch)] object pDisp,
-                             [In] [MarshalAs(UnmanagedType.Struct)] ref object URL,
-                             [In] [MarshalAs(UnmanagedType.Struct)] ref object Flags,
-                             [In] [MarshalAs(UnmanagedType.Struct)] ref object TargetFrameName,
-                             [In] [MarshalAs(UnmanagedType.Struct)] ref object PostData,
-                             [In] [MarshalAs(UnmanagedType.Struct)] ref object Headers,
-                             [In] [Out] ref bool Cancel);
-
-            [PreserveSig]
-            [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-            [DispId(271)]
-            void NavigateError([In] [MarshalAs(UnmanagedType.IDispatch)] object pDisp,
-                            [In] [MarshalAs(UnmanagedType.Struct)] ref object URL,
-                            [In] [MarshalAs(UnmanagedType.Struct)] ref object Frame,
-                            [In] [MarshalAs(UnmanagedType.Struct)] ref object StatusCode,
-                            [In] [Out] ref bool Cancel);
-        }
-
-
-        private class ExtendedWebBrowserEventHelper : StandardOleMarshalObject, DWebBrowserEvents2
-        {
-            readonly ExtendedWebBrowser parent;
-
-            public ExtendedWebBrowserEventHelper(ExtendedWebBrowser parent)
-            {
-                this.parent = parent;
-            }
-
-            public void BeforeNavigate2(object pDisp, ref object URL, ref object Flags,
-                ref object TargetFrameName, ref object PostData, ref object Headers, ref bool Cancel)
-            {
-                parent.OnBeforeNavigate2(pDisp, ref URL, ref Flags, ref TargetFrameName,
-                    ref PostData, ref Headers, ref Cancel);
-            }
-
-            public void NavigateError(object pDisp, ref object URL, ref object Frame,
-                ref object StatusCode, ref bool Cancel)
-            {
-                parent.OnNavigateError(pDisp, ref URL, ref Frame, ref StatusCode, ref Cancel);
             }
         }
     }
