@@ -8,12 +8,13 @@ namespace LogIn_Form
     public partial class Form2 : Form
     {
         //OpenId auth 
-        private static OpenIdRelyingParty relyingParty;
+        private static OpenIdRelyingParty relyingParty; 
 
         static Form2()
         {
             relyingParty = new OpenIdRelyingParty();
         }
+
 
         public Form2()
         {
