@@ -92,5 +92,19 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Background2.png" />
+    <Resource Include="Resources\ButtonLogIn.png" />
+    <Resource Include="Resources\ButtonLogInActivated.png" />
+    <Resource Include="Resources\ButtonLogInHover.png" />
+    <Resource Include="Resources\Close.png" />
+    <Resource Include="Resources\CloseHover.png" />
+    <Resource Include="Resources\LogoLogInForm.png" />
+    <Resource Include="Resources\Minimize.png" />
+    <Resource Include="Resources\MinimizeHover.png" />
+    <Resource Include="Resources\TextBox.png" />
+    <Resource Include="Resources\TextBoxActivated.png" />
+    <Resource Include="Resources\TextBoxHover.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
