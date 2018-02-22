@@ -20,14 +20,67 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
+
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        //
+        //Move Login Form
+        //
+        private void ImageLogo_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+        }
+
+        //
+        //Log In Button
+        //
+        private void ButtonLogIn_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+        //
+        //Close Button
+        //
+        private void ImageClose_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.Close();
+            }
+        }
+        private void ImageClose_MouseEnter(object sender, MouseEventArgs e)
+        {
+            this.imageClose.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/CloseHover.png"));
+        }
+        private void ImageClose_MouseLeave(object sender, MouseEventArgs e)
+        {
+            this.imageClose.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Close.png"));
+        }
+
+        //
+        //Minimize Button
+        //
+        private void ImageMinimize_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.WindowState = WindowState.Minimized;
+            }
+        }
+        private void ImageMinimize_MouseEnter(object sender, MouseEventArgs e)
+        {
+            this.imageMinimize.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/MinimizeHover.png"));
+        }
+        private void ImageMinimize_MouseLeave(object sender, MouseEventArgs e)
+        {
+            this.imageMinimize.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Minimize.png"));
         }
     }
 }

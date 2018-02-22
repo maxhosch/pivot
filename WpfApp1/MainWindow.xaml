@@ -7,19 +7,79 @@
         x:Name="LogIn" x:Class="WpfApp1.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="510" Width="355" WindowStartupLocation="CenterScreen" FontFamily="Open Sans" Background="#FFF9F9F9" Foreground="Black" ResizeMode="NoResize" IsHitTestVisible="True" WindowStyle="None">
+
+    <Window.Resources>
+        <!--Button-->
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Width" Value="314"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Margin" Value="0,0,0,50"/>
+            <Setter Property="AutomationProperties.Name" Value="buttonLogIn"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <ImageBrush ImageSource="C:/Users/justu/Desktop/ProjectX/WpfApp1/Resources/ButtonLogIn.png" Stretch="UniformToFill"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="C:/Users/justu/Desktop/ProjectX/WpfApp1/Resources/ButtonLogInHover.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="Button.IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="C:/Users/justu/Desktop/ProjectX/WpfApp1/Resources/ButtonLogInActivated.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--ImageBoxClose-->
+        <Style x:Key="ToolboxStyle" TargetType="Image">
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Height" Value="15"/>
+            <Setter Property="Width" Value="15"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
+        </Style>
+        
+        <!--ImageBoxLogo-->
+        <Style x:Key="LogoStyle" TargetType="Image">
+            <Setter Property="Source" Value="Resources/LogoLogInForm.png"/>
+            <Setter Property="Margin" Value="0,2,0,0"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Height" Value="174"/>
+            <Setter Property="Width" Value="350"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="Resources/background2.png" Stretch="UniformToFill"/>
         </Grid.Background>
 
-        <Button Content="Log In" Margin="0,0,0,50" VerticalAlignment="Bottom" Height="30" Click="Button_Click" HorizontalAlignment="Center" Width="314" AutomationProperties.Name="buttonLogIn">
-            <Button.Background>
-                <ImageBrush ImageSource="Resources/ButtonLogIn.png" Stretch="UniformToFill"/>
-            </Button.Background>
-            <Button.Triggers>
-            </Button.Triggers>
+        <Button Click="ButtonLogIn_Click" x:Name="buttonLogIn" Style="{StaticResource ButtonStyle}" Content="Log In"/>
+        <Image MouseDown="ImageLogo_MouseDown" x:Name="imageLogo" Style="{StaticResource LogoStyle}"/>
+        <Image MouseDown="ImageClose_MouseDown" MouseEnter="ImageClose_MouseEnter" MouseLeave="ImageClose_MouseLeave" x:Name="imageClose" Style="{StaticResource ToolboxStyle}" Margin="0,2,2,0" Source="Resources/Close.png"/>
+        <Image MouseDown="ImageMinimize_MouseDown" MouseEnter="ImageMinimize_MouseEnter" MouseLeave="ImageMinimize_MouseLeave" x:Name="imageMinimize" Style="{StaticResource ToolboxStyle}" Margin="0,2,25,0" Source="Resources/Minimize.png"/>
 
-        </Button>
 
     </Grid>
 </Window>
