@@ -20,7 +20,7 @@
             <Setter Property="AutomationProperties.Name" Value="buttonLogIn"/>
             <Setter Property="Background">
                 <Setter.Value>
-                    <ImageBrush ImageSource="C:/Users/justu/Desktop/ProjectX/WpfApp1/Resources/ButtonLogIn.png" Stretch="UniformToFill"/>
+                    <ImageBrush ImageSource="pack://application:,,,/Resources/ButtonLogIn.png" Stretch="UniformToFill"/>
                 </Setter.Value>
             </Setter>
             <Setter Property="Template">
@@ -33,14 +33,14 @@
                             <Trigger Property="Button.IsMouseOver" Value="True">
                                 <Setter TargetName="border" Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="C:/Users/justu/Desktop/ProjectX/WpfApp1/Resources/ButtonLogInHover.png"/>
+                                        <ImageBrush ImageSource="pack://application:,,,/Resources/ButtonLogInHover.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
                             <Trigger Property="Button.IsPressed" Value="True">
                                 <Setter TargetName="border" Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="C:/Users/justu/Desktop/ProjectX/WpfApp1/Resources/ButtonLogInActivated.png"/>
+                                        <ImageBrush ImageSource="pack://application:,,,/Resources/ButtonLogInActivated.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
