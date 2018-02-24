@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -38,6 +39,15 @@ namespace WpfApp1
         {
 
         }
+
+        //
+        //Log In Button
+        //
+        private void ButtonSignUp_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         //
         //Close Button
         //
@@ -75,6 +85,18 @@ namespace WpfApp1
         {
             this.imageMinimize.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Minimize.png"));
             
+        }
+
+        //
+        //Sign Up Button
+        //
+        private void LabelSignUp_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {         
+                Window signUp = new SignUpWindow();
+                signUp.Show();
+            }
         }
     }
 
