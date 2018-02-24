@@ -23,5 +23,65 @@ namespace WpfApp1
         {
             InitializeComponent();
         }
+
+        //
+        //Log In Button
+        //
+        private void ButtonSignUp_Click(object sender, RoutedEventArgs e)
+        {
+            Window logIn = new MainWindow();
+            logIn.WindowState = WindowState.Minimized;
+        }
+
+        //
+        //Close Button
+        //
+        private void ImageClose_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.Close();
+            }
+        }
+        private void ImageClose_MouseEnter(object sender, MouseEventArgs e)
+        {
+            this.imageClose.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/CloseHover.png"));
+        }
+        private void ImageClose_MouseLeave(object sender, MouseEventArgs e)
+        {
+            this.imageClose.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Close.png"));
+        }
+
+        //
+        //Minimize Button
+        //
+        private void ImageMinimize_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.WindowState = WindowState.Minimized;
+            }
+        }
+        private void ImageMinimize_MouseEnter(object sender, MouseEventArgs e)
+        {
+            this.imageMinimize.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/MinimizeHover.png"));
+        }
+        private void ImageMinimize_MouseLeave(object sender, MouseEventArgs e)
+        {
+            this.imageMinimize.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Minimize.png"));
+
+        }
+
+        //
+        //Back Button
+        //
+        private void LabelBack_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                Window signUp = new SignUpWindow();
+                signUp.Show();
+            }
+        }
     }
 }

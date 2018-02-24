@@ -41,14 +41,6 @@ namespace WpfApp1
         }
 
         //
-        //Log In Button
-        //
-        private void ButtonSignUp_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        //
         //Close Button
         //
         private void ImageClose_MouseDown(object sender, MouseButtonEventArgs e)

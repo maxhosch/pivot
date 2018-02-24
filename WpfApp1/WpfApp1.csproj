@@ -115,5 +115,8 @@
     <Resource Include="Resources\TextBoxActivated.png" />
     <Resource Include="Resources\TextBoxHover.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BackgroundSignUp.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
