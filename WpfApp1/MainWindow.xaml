@@ -165,9 +165,9 @@
 
         <Button Click="ButtonLogIn_Click" x:Name="buttonLogIn" Style="{StaticResource ButtonStyle}" Content="Log In" Margin="0,340,0,0"/>
         <!--<Button Click="ButtonSignUp_Click" x:Name="buttonSignUp" Style="{StaticResource ButtonStyle}" Content="Sign Up" Margin="20,0,0,30" Width="100" HorizontalAlignment="Left"/>-->
-        <Image MouseDown="ImageLogo_MouseDown" x:Name="imageLogo" Style="{StaticResource LogoStyle}"/>
-        <Image MouseDown="ImageClose_MouseDown" MouseEnter="ImageClose_MouseEnter" MouseLeave="ImageClose_MouseLeave" x:Name="imageClose" Style="{StaticResource ToolboxStyle}" Margin="0,2,2,0" Source="Resources/Close.png"/>
-        <Image MouseDown="ImageMinimize_MouseDown" MouseEnter="ImageMinimize_MouseEnter" MouseLeave="ImageMinimize_MouseLeave" x:Name="imageMinimize" Style="{StaticResource ToolboxStyle}" Margin="0,2,25,0" Source="Resources/Minimize.png"/>
+        <Image x:Name="imageLogo" MouseDown="ImageLogo_MouseDown" Style="{StaticResource LogoStyle}"/>
+        <Image x:Name="imageClose" MouseDown="ImageClose_MouseDown" MouseEnter="ImageClose_MouseEnter" MouseLeave="ImageClose_MouseLeave" Style="{StaticResource ToolboxStyle}" Margin="0,2,2,0" Source="Resources/Close.png"/>
+        <Image x:Name="imageMinimize" MouseDown="ImageMinimize_MouseDown" MouseEnter="ImageMinimize_MouseEnter" MouseLeave="ImageMinimize_MouseLeave" Style="{StaticResource ToolboxStyle}" Margin="0,2,25,0" Source="Resources/Minimize.png"/>
 
         <TextBox x:Name="textboxEmail" Style="{StaticResource TextboxStyle}" Margin="0,220,0,0" Text="{Binding InputText,Mode=TwoWay}" VerticalAlignment="Top"/>
         <Label x:Name="labelCuebannerEmail" Style="{StaticResource CluebannerEmailStyle}" Content="Email" Margin="22,222,0,0"/>

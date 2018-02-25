@@ -25,7 +25,7 @@ namespace WpfApp1
         }
 
         //
-        //Log In Button
+        //SignUp Button
         //
         private void ButtonSignUp_Click(object sender, RoutedEventArgs e)
         {
@@ -81,6 +81,17 @@ namespace WpfApp1
             {
                 Window signUp = new SignUpWindow();
                 signUp.Show();
+            }
+        }
+
+        //
+        //Rectangle Header
+        //
+        private void RectangleHeader_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
             }
         }
     }

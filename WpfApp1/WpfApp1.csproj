@@ -118,5 +118,8 @@
   <ItemGroup>
     <Resource Include="Resources\BackgroundSignUp.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BackgroundSignUpHeader.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
