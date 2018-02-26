@@ -22,15 +22,7 @@ namespace WpfApp1
         public SignUpWindow()
         {
             InitializeComponent();
-        }
-
-        //
-        //SignUp Button
-        //
-        private void ButtonSignUp_Click(object sender, RoutedEventArgs e)
-        {
-            Window logIn = new MainWindow();
-            logIn.WindowState = WindowState.Minimized;
+            this.Main.Content = new LogInPage();
         }
 
         //
@@ -70,18 +62,6 @@ namespace WpfApp1
         {
             this.imageMinimize.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Minimize.png"));
 
-        }
-
-        //
-        //Back Button
-        //
-        private void LabelBack_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                Window signUp = new SignUpWindow();
-                signUp.Show();
-            }
         }
 
         //

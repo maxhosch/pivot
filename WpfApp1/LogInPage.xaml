@@ -1,13 +1,14 @@
-﻿<Window x:Class="WpfApp1.SignUpWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp1"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="510" Width="755" WindowStartupLocation="CenterScreen" FontFamily="Open Sans" Background="#FFF9F9F9" Foreground="Black" ResizeMode="NoResize" IsHitTestVisible="True" WindowStyle="None">
+﻿<Page x:Class="WpfApp1.LogInPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1"
+      mc:Ignorable="d" 
+      d:DesignHeight="510" d:DesignWidth="755"
+      Title="LogInPage">
 
-    <Window.Resources>
+    <Page.Resources>
         <!--Button-->
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -211,20 +212,17 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </Window.Resources>
+    </Page.Resources>
 
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="pack://application:,,,/Resources/BackgroundSignUp.png" Stretch="UniformToFill"/>
-        </Grid.Background>
+        <Button x:Name="buttonLogIn" Click="ButtonLogIn_Click" Style="{StaticResource ButtonStyle}" Content="Log In" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,20"/>
+        <Label x:Name="labelSignUp" MouseDown="LabelSignUp_MouseDown" Style="{StaticResource LabelExtraStyle}" Content="Sign Up" HorizontalAlignment="Left" Margin="20,0,0,20" HorizontalContentAlignment="Left"/>
+        <Label x:Name="labelHeader" Style="{StaticResource LabelHeaderStyle}" Content="Anmelden" Margin="0,40,0,0"/>
 
-        <Rectangle x:Name="rectangleHeader" MouseDown="RectangleHeader_MouseDown" Style="{StaticResource RectangleHeaderStyle}"/>
-        <Image x:Name="imageClose" MouseDown="ImageClose_MouseDown" MouseEnter="ImageClose_MouseEnter" MouseLeave="ImageClose_MouseLeave" Style="{StaticResource ToolboxStyle}" Margin="0,8,6,0" Source="Resources/Close.png"/>
-        <Image x:Name="imageMinimize" MouseDown="ImageMinimize_MouseDown" MouseEnter="ImageMinimize_MouseEnter" MouseLeave="ImageMinimize_MouseLeave" Style="{StaticResource ToolboxStyle}" Margin="0,8,29,0" Source="Resources/Minimize.png"/>
+        <TextBox x:Name="textboxUsername" Style="{StaticResource TextboxStyle}" Text="{Binding InputText,Mode=TwoWay}" Margin="0,170,0,0"/>
+        <Label x:Name="labelCuebannerUsername" Style="{StaticResource CluebannerUsernameStyle}" Content="Username" Margin="222,172,0,0"/>
 
-
-        <Frame x:Name="Main" NavigationUIVisibility="Hidden"/>
-
-
+        <TextBox x:Name="textboxPassword" Style="{StaticResource TextboxStyle}" Text="{Binding InputText,Mode=TwoWay}" Margin="0,220,0,0"/>
+        <Label x:Name="labelCuebannerPassword" Style="{StaticResource CluebannerPasswordStyle}" Content="Password" Margin="222,222,0,0"/>
     </Grid>
-</Window>
+</Page>
