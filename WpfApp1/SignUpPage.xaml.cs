@@ -34,13 +34,25 @@ namespace WpfApp1
         }
 
         //
-        //Back Button
+        //Login Label Button
         //
-        private void LabelBack_MouseDown(object sender, MouseButtonEventArgs e)
+        private void LabelLogIn_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
                 NavigationService.Navigate(new LogInPage());
+            }
+        }
+
+        //
+        //Cuebanner Label Button
+        //
+        private void LabelCuebanner_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 1) //Note that this is a lie, this does not check for a "real" click
+            {
+                var label = (Label)sender;
+                Keyboard.Focus(label.Target);
             }
         }
     }

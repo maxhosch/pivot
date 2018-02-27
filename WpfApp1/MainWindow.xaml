@@ -6,177 +6,50 @@
         xmlns:local="clr-namespace:WpfApp1"
         x:Name="LogIn" x:Class="WpfApp1.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="510" Width="355" WindowStartupLocation="CenterScreen" FontFamily="Open Sans" Background="#FFF9F9F9" Foreground="Black" ResizeMode="NoResize" IsHitTestVisible="True" WindowStyle="None">
+        Title="MainWindow" Height="660" Width="400" WindowStartupLocation="CenterScreen" FontFamily="Open Sans" Background="{x:Null}" Foreground="Black" ResizeMode="NoResize" IsHitTestVisible="True" WindowStyle="None">
 
     <Window.Resources>
-        <!--Button-->
-        <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="Width" Value="314"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="Background">
-                <Setter.Value>
-                    <ImageBrush ImageSource="pack://application:,,,/Resources/ButtonLogIn.png" Stretch="Fill"/>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="Button.IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background">
-                                    <Setter.Value>
-                                        <ImageBrush ImageSource="pack://application:,,,/Resources/ButtonLogInHover.png" Stretch="Fill"/>
-                                    </Setter.Value>
-                                </Setter>
-                            </Trigger>
-                            <Trigger Property="Button.IsPressed" Value="True">
-                                <Setter TargetName="border" Property="Background">
-                                    <Setter.Value>
-                                        <ImageBrush ImageSource="pack://application:,,,/Resources/ButtonLogInActivated.png" Stretch="Fill"/>
-                                    </Setter.Value>
-                                </Setter>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!--ImageBoxClose-->
+        <!--ImageBoxTopTools-->
         <Style x:Key="ToolboxStyle" TargetType="Image">
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="Height" Value="15"/>
-            <Setter Property="Width" Value="15"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="30"/>
             <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
         </Style>
 
         <!--ImageBoxLogo-->
         <Style x:Key="LogoStyle" TargetType="Image">
-            <Setter Property="Source" Value="Resources/LogoLogInForm.png"/>
-            <Setter Property="Margin" Value="0,2,0,0"/>
+            <Setter Property="Source" Value="Resources/Logo.png"/>
+            <Setter Property="Margin" Value="0,40,0,0"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Height" Value="174"/>
             <Setter Property="Width" Value="350"/>
-            <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
         </Style>
 
-        <!--TextBox-->
-        <Style x:Key="TextboxStyle" TargetType="TextBox">
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="314"/>
-            <Setter Property="BorderThickness" Value="0"/>
+        <!--ImageBoxTopBar-->
+        <Style x:Key="TopBarStyle" TargetType="Image">
+            <Setter Property="Source" Value="Resources/TopBar.png"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="5,0"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="CaretBrush" Value="White"/>
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="Width" Value="400"/>
             <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
-            <Setter Property="Background">
-                <Setter.Value>
-                    <ImageBrush ImageSource="pack://application:,,,/Resources/TextBox.png"/>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsFocused" Value="False">
-                    <Setter Property="Background">
-                        <Setter.Value>
-                            <ImageBrush ImageSource="pack://application:,,,/Resources/TextBox.png"/>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background">
-                        <Setter.Value>
-                            <ImageBrush ImageSource="pack://application:,,,/Resources/TextBoxHover.png"/>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-                <Trigger Property="IsFocused" Value="True">
-                    <Setter Property="Background">
-                        <Setter.Value>
-                            <ImageBrush ImageSource="pack://application:,,,/Resources/TextBoxActivated.png"/>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <!--CluebannerEmail-->
-        <Style x:Key="CluebannerEmailStyle" TargetType="Label">
-            <Setter Property="Visibility" Value="Hidden"/>
-            <Setter Property="Foreground" Value="Gray"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-            <Style.Triggers>
-                <MultiDataTrigger>
-                    <MultiDataTrigger.Conditions>
-                        <Condition Binding ="{Binding ElementName=textboxEmail, Path=Text.Length}" Value="0"/>
-                        <!--<Condition Binding ="{Binding ElementName=textboxEmail, Path=IsFocused}" Value="False"/>-->
-                    </MultiDataTrigger.Conditions>
-                    <Setter Property="Visibility" Value="Visible"/>
-                </MultiDataTrigger>
-            </Style.Triggers>
-        </Style>
-
-        <!--CluebannerPassword-->
-        <Style x:Key="CluebannerPasswordStyle" TargetType="Label">
-            <Setter Property="Visibility" Value="Hidden"/>
-            <Setter Property="Foreground" Value="Gray"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-            <Style.Triggers>
-                <MultiDataTrigger>
-                    <MultiDataTrigger.Conditions>
-                        <Condition Binding ="{Binding ElementName=textboxPassword, Path=Text.Length}" Value="0"/>
-                        <!--<Condition Binding ="{Binding ElementName=textboxEmail, Path=IsFocused}" Value="False"/>-->
-                    </MultiDataTrigger.Conditions>
-                    <Setter Property="Visibility" Value="Visible"/>
-                </MultiDataTrigger>
-            </Style.Triggers>
-        </Style>
-
-        <!--Label Extras-->
-        <Style x:Key="LabelExtraStyle" TargetType="Label">
-            <Setter Property="Foreground" Value="#FF45BBFF"/>
-            <Setter Property="Width" Value="60"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Bottom"/>
-            <Setter Property="Background" Value="{x:Null}"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="#FF98D9FF"/>
-                </Trigger>
-            </Style.Triggers>
         </Style>
     </Window.Resources>
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="pack://application:,,,/Resources/background2.png" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="pack://application:,,,/Resources/Background.png" Stretch="UniformToFill"/>
         </Grid.Background>
+        
+        <Image x:Name="imageLogo" Style="{StaticResource LogoStyle}"/>
+        <Image x:Name="imageTopBar" MouseDown="ImageTopBar_MouseDown" Style="{StaticResource TopBarStyle}"/>
+        <Image x:Name="imageClose" MouseDown="ImageClose_MouseDown" MouseEnter="ImageClose_MouseEnter" MouseLeave="ImageClose_MouseLeave" Style="{StaticResource ToolboxStyle}" Margin="0,0,0,0" Source="Resources/Close.png"/>
+        <Image x:Name="imageMinimize" MouseDown="ImageMinimize_MouseDown" MouseEnter="ImageMinimize_MouseEnter" MouseLeave="ImageMinimize_MouseLeave" Style="{StaticResource ToolboxStyle}" Margin="0,0,30,0" Source="Resources/Minimize.png"/>
 
-        <Button Click="ButtonLogIn_Click" x:Name="buttonLogIn" Style="{StaticResource ButtonStyle}" Content="Log In" Margin="0,340,0,0"/>
-        <!--<Button Click="ButtonSignUp_Click" x:Name="buttonSignUp" Style="{StaticResource ButtonStyle}" Content="Sign Up" Margin="20,0,0,30" Width="100" HorizontalAlignment="Left"/>-->
-        <Image x:Name="imageLogo" MouseDown="ImageLogo_MouseDown" Style="{StaticResource LogoStyle}"/>
-        <Image x:Name="imageClose" MouseDown="ImageClose_MouseDown" MouseEnter="ImageClose_MouseEnter" MouseLeave="ImageClose_MouseLeave" Style="{StaticResource ToolboxStyle}" Margin="0,2,2,0" Source="Resources/Close.png"/>
-        <Image x:Name="imageMinimize" MouseDown="ImageMinimize_MouseDown" MouseEnter="ImageMinimize_MouseEnter" MouseLeave="ImageMinimize_MouseLeave" Style="{StaticResource ToolboxStyle}" Margin="0,2,25,0" Source="Resources/Minimize.png"/>
-
-        <TextBox x:Name="textboxEmail" Style="{StaticResource TextboxStyle}" Margin="0,220,0,0" Text="{Binding InputText,Mode=TwoWay}" VerticalAlignment="Top"/>
-        <Label x:Name="labelCuebannerEmail" Style="{StaticResource CluebannerEmailStyle}" Content="Email" Margin="22,222,0,0"/>
-
-        <TextBox x:Name="textboxPassword" Style="{StaticResource TextboxStyle}" Margin="0,270,0,0" Text="{Binding InputText,Mode=TwoWay}" VerticalAlignment="Top"/>
-        <Label x:Name="labelCuebannerPassword" Style="{StaticResource CluebannerPasswordStyle}" Content="Password" Margin="22,272,0,0"/>
-
-        <Label MouseDown="LabelSignUp_MouseDown" x:Name="labelSignUp" Style="{StaticResource LabelExtraStyle}" Content="Sign Up" HorizontalAlignment="Left" Margin="20,0,0,30" HorizontalContentAlignment="Left"/>
-        <Label x:Name="labelOptions" Style="{StaticResource LabelExtraStyle}" Content="Options" HorizontalAlignment="Right" Margin="0,0,20,30" HorizontalContentAlignment="Right"/>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
 
 
     </Grid>
