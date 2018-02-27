@@ -68,6 +68,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="LogInPage.xaml.cs">
+      <DependentUpon>LogInPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SignUpPage.xaml.cs">
+      <DependentUpon>SignUpPage.xaml</DependentUpon>
+    </Compile>
+    <Page Include="LogInPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -80,6 +91,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SignUpPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -109,18 +124,38 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Background2.png" />
     <Resource Include="Resources\ButtonLogIn.png" />
     <Resource Include="Resources\ButtonLogInActivated.png" />
     <Resource Include="Resources\ButtonLogInHover.png" />
     <Resource Include="Resources\Close.png" />
     <Resource Include="Resources\CloseHover.png" />
-    <Resource Include="Resources\LogoLogInForm.png" />
     <Resource Include="Resources\Minimize.png" />
     <Resource Include="Resources\MinimizeHover.png" />
     <Resource Include="Resources\TextBox.png" />
     <Resource Include="Resources\TextBoxActivated.png" />
     <Resource Include="Resources\TextBoxHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\TextboxFocus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Topbar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconPassword.png" />
+    <Resource Include="Resources\IconUser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconEmail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconBetaKey.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

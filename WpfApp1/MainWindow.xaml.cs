@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Xml;
 using WpfApp1.LocalAuth;
+using WpfApp1.OnlineAuth;
 
 namespace WpfApp1
 {
@@ -20,12 +21,13 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+            this.MainFrame.Content = new LogInPage();
         }
 
         //
         //Move Login Form
         //
-        private void ImageLogo_MouseDown(object sender, MouseButtonEventArgs e)
+        private void ImageTopBar_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if(e.ChangedButton == MouseButton.Left)
             {
@@ -40,6 +42,7 @@ namespace WpfApp1
         {
 
         }
+
         //
         //Close Button
         //

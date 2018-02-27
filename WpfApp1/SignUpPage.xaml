@@ -1,0 +1,235 @@
+﻿<Page x:Class="WpfApp1.SignUpPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1"
+      mc:Ignorable="d" 
+      d:DesignHeight="660" d:DesignWidth="400"
+      Title="SignUpPage">
+
+    <Page.Resources>
+        
+        <!--Label Header-->
+        <Style x:Key="LabelHeaderStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="314"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="FontSize" Value="24"/>
+        </Style>
+
+        <!--TextBox-->
+        <Style x:Key="TextboxStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="Width" Value="400"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="81,0,10,0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CaretBrush" Value="White"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <ImageBrush ImageSource="pack://application:,,,/Resources/TextBox.png"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="False">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <ImageBrush ImageSource="pack://application:,,,/Resources/TextBox.png"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <ImageBrush ImageSource="pack://application:,,,/Resources/TextBoxHover.png"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <ImageBrush ImageSource="pack://application:,,,/Resources/TextBoxActivated.png"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--CluebannerUsername-->
+        <Style x:Key="CluebannerUsernameStyle" TargetType="Label">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding ="{Binding ElementName=textboxUsername, Path=Text.Length}" Value="0"/>
+                        <!--<Condition Binding ="{Binding ElementName=textboxEmail, Path=IsFocused}" Value="False"/>-->
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Visibility" Value="Visible"/>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--CluebannerEmail-->
+        <Style x:Key="CluebannerEmailStyle" TargetType="Label">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding ="{Binding ElementName=textboxEmail, Path=Text.Length}" Value="0"/>
+                        <!--<Condition Binding ="{Binding ElementName=textboxEmail, Path=IsFocused}" Value="False"/>-->
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Visibility" Value="Visible"/>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--CluebannerPassword-->
+        <Style x:Key="CluebannerPasswordStyle" TargetType="Label">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding ="{Binding ElementName=textboxPassword, Path=Text.Length}" Value="0"/>
+                        <!--<Condition Binding ="{Binding ElementName=textboxEmail, Path=IsFocused}" Value="False"/>-->
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Visibility" Value="Visible"/>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--CluebannerBetaKey-->
+        <Style x:Key="CluebannerBetaKeyStyle" TargetType="Label">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding ="{Binding ElementName=textboxBetaKey, Path=Text.Length}" Value="0"/>
+                        <!--<Condition Binding ="{Binding ElementName=textboxEmail, Path=IsFocused}" Value="False"/>-->
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Visibility" Value="Visible"/>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--ImageBoxTextboxIcons-->
+        <Style x:Key="TextboxIconStyle" TargetType="Image">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
+        </Style>
+
+        <!--Button-->
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Width" Value="314"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <ImageBrush ImageSource="pack://application:,,,/Resources/ButtonLogIn.png" Stretch="Fill"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="pack://application:,,,/Resources/ButtonLogInHover.png" Stretch="Fill"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="Button.IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="pack://application:,,,/Resources/ButtonLogInActivated.png" Stretch="Fill"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--Label Extras Question-->
+        <Style x:Key="LabelExtraQuestionStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Background" Value="{x:Null}"/>
+        </Style>
+
+        <!--Label Extras-->
+        <Style x:Key="LabelExtraStyle" TargetType="Label">
+            <!--<Setter Property="Foreground" Value="#FF45BBFF"/>-->
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="60"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Background" Value="{x:Null}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#FF98D9FF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Label x:Name="labelHeader" Style="{StaticResource LabelHeaderStyle}" Content="Sign Up" Margin="0,0,50,120"/>
+
+        <TextBox x:Name="textboxUsername" Style="{StaticResource TextboxStyle}" Text="{Binding InputText,Mode=TwoWay}" Margin="0,0,0,0"/>
+        <Label x:Name="labelCuebannerUsername" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerUsernameStyle}" Content="Username" Target="{x:Reference textboxUsername}" Margin="80,0,0,0"/>
+        <Image x:Name="imageUserIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconUser.png" Margin="0,0,270,0"/>
+
+        <TextBox x:Name="textboxEmail" Style="{StaticResource TextboxStyle}" Text="{Binding InputText,Mode=TwoWay}" Margin="0,100,0,0"/>
+        <Label x:Name="labelCuebannerEmail" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerEmailStyle}" Content="Email" Target="{x:Reference textboxEmail}" Margin="80,100,0,0"/>
+        <Image x:Name="imageEmailIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconEmail.png" Margin="0,100,270,0"/>
+
+        <TextBox x:Name="textboxPassword" Style="{StaticResource TextboxStyle}" Text="{Binding InputText,Mode=TwoWay}" Margin="0,200,0,0"/>
+        <Label x:Name="labelCuebannerPassword" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerPasswordStyle}" Content="Password" Target="{x:Reference textboxPassword}" Margin="80,200,0,0"/>
+        <Image x:Name="imagePasswordIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconPassword.png" Margin="0,200,270,0"/>
+
+        <TextBox x:Name="textboxBetaKey" Style="{StaticResource TextboxStyle}" Text="{Binding InputText,Mode=TwoWay}" Margin="0,300,0,0"/>
+        <Label x:Name="labelCuebannerBetaKey" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerBetaKeyStyle}" Content="BetaKey" Target="{x:Reference textboxBetaKey}" Margin="80,300,0,0"/>
+        <Image x:Name="imageBetaKeyIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconBetaKey.png" Margin="0,300,270,0"/>
+
+        <Button x:Name="buttonLogIn" Click="ButtonSignUp_Click" Style="{StaticResource ButtonStyle}" Content="Sign Up" VerticalAlignment="Bottom" Margin="0,0,0,70"/>
+        <Label x:Name="labelLoginQuestion" Style="{StaticResource LabelExtraQuestionStyle}" Content="Already have an account?" Margin="0,0,50,20"/>
+        <Label x:Name="labelLogin" MouseDown="LabelLogIn_MouseDown" Style="{StaticResource LabelExtraStyle}" Content="Login" Margin="130,0,0,20"/>
+    </Grid>
+</Page>
