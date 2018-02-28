@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfApp1"
         x:Name="LogIn" x:Class="WpfApp1.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="660" Width="400" WindowStartupLocation="CenterScreen" FontFamily="Open Sans" Background="{x:Null}" Foreground="Black" ResizeMode="NoResize" IsHitTestVisible="True" WindowStyle="None">
+        Title="MainWindow" Height="660" Width="400" WindowStartupLocation="CenterScreen" FontFamily="Open Sans" Background="{x:Null}" Foreground="Black" ResizeMode="CanMinimize" IsHitTestVisible="True" WindowStyle="None" AllowsTransparency="True" Icon="Resources/DesktopIcon.png">
 
     <Window.Resources>
         <!--ImageBoxTopTools-->

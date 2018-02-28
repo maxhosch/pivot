@@ -229,7 +229,7 @@ namespace WpfApp1
                     MySqlCommand cmd;
                     Console.WriteLine("Connecting to TerraDB...");
                     conn.Open();
-                    cmd = new MySqlCommand(String.Format(SetBetaKeyUsedSQL, this.ID), conn);
+                    cmd = new MySqlCommand(String.Format(SetBetaKeyUsedSQL, username, this.ID.ToString()), conn);
                     cmd.ExecuteNonQuery();
                     this.Username = username;
                     conn.Close();
@@ -269,6 +269,8 @@ namespace WpfApp1
                 Password = password;
                 Email = email;
             }
+
+            // Deprecated
 
             private User(int id, string username, string password, string email)
             {

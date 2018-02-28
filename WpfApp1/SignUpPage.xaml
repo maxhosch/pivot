@@ -29,7 +29,7 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="81,0,10,0"/>
+            <Setter Property="Padding" Value="81,0,81,0"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="CaretBrush" Value="White"/>
             <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
@@ -39,13 +39,59 @@
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
-                <Trigger Property="IsFocused" Value="False">
+                <!--<Trigger Property="IsFocused" Value="False">
                     <Setter Property="Background">
                         <Setter.Value>
                             <ImageBrush ImageSource="pack://application:,,,/Resources/TextBox.png"/>
                         </Setter.Value>
                     </Setter>
                 </Trigger>
+                -->
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <ImageBrush ImageSource="pack://application:,,,/Resources/TextBoxHover.png"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <ImageBrush ImageSource="pack://application:,,,/Resources/TextBoxActivated.png"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--PasswordBox-->
+        <Style x:Key="PasswordboxStyle" TargetType="PasswordBox">
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="Width" Value="400"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="81,0,81,0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CaretBrush" Value="White"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <ImageBrush ImageSource="pack://application:,,,/Resources/TextBox.png"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Tag" Value="False"/>
+            <EventSetter Event="PasswordChanged" Handler="OnPasswordChanged"/>
+            <Style.Triggers>
+                <!--<Trigger Property="IsFocused" Value="False">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <ImageBrush ImageSource="pack://application:,,,/Resources/TextBox.png"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                -->
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background">
                         <Setter.Value>
@@ -104,13 +150,9 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Style.Triggers>
-                <MultiDataTrigger>
-                    <MultiDataTrigger.Conditions>
-                        <Condition Binding ="{Binding ElementName=textboxPassword, Path=Text.Length}" Value="0"/>
-                        <!--<Condition Binding ="{Binding ElementName=textboxEmail, Path=IsFocused}" Value="False"/>-->
-                    </MultiDataTrigger.Conditions>
+                <DataTrigger Binding="{Binding ElementName=passwordboxPassword, Path=Tag}" Value="False">
                     <Setter Property="Visibility" Value="Visible"/>
-                </MultiDataTrigger>
+                </DataTrigger>
             </Style.Triggers>
         </Style>
 
@@ -220,12 +262,12 @@
         <Label x:Name="labelCuebannerEmail" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerEmailStyle}" Content="Email" Target="{x:Reference textboxEmail}" Margin="80,100,0,0"/>
         <Image x:Name="imageEmailIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconEmail.png" Margin="0,100,270,0"/>
 
-        <TextBox x:Name="textboxPassword" Style="{StaticResource TextboxStyle}" Text="{Binding InputText,Mode=TwoWay}" Margin="0,200,0,0"/>
-        <Label x:Name="labelCuebannerPassword" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerPasswordStyle}" Content="Password" Target="{x:Reference textboxPassword}" Margin="80,200,0,0"/>
+        <PasswordBox x:Name="passwordboxPassword" Style="{StaticResource PasswordboxStyle}" Margin="0,200,0,0"/>
+        <Label x:Name="labelCuebannerPassword" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerPasswordStyle}" Content="Password" Target="{x:Reference passwordboxPassword}" Margin="80,200,0,0"/>
         <Image x:Name="imagePasswordIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconPassword.png" Margin="0,200,270,0"/>
 
         <TextBox x:Name="textboxBetaKey" Style="{StaticResource TextboxStyle}" Text="{Binding InputText,Mode=TwoWay}" Margin="0,300,0,0"/>
-        <Label x:Name="labelCuebannerBetaKey" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerBetaKeyStyle}" Content="BetaKey" Target="{x:Reference textboxBetaKey}" Margin="80,300,0,0"/>
+        <Label x:Name="labelCuebannerBetaKey" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerBetaKeyStyle}" Content="Beta Key" Target="{x:Reference textboxBetaKey}" Margin="80,300,0,0"/>
         <Image x:Name="imageBetaKeyIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconBetaKey.png" Margin="0,300,270,0"/>
 
         <Button x:Name="buttonLogIn" Click="ButtonSignUp_Click" Style="{StaticResource ButtonStyle}" Content="Sign Up" VerticalAlignment="Bottom" Margin="0,0,0,70"/>
