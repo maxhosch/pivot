@@ -26,11 +26,37 @@ namespace WpfApp1
             InitializeComponent();
         }
 
+        //Init variables
+        User loginData;
+
         //
         //Log In Button
         //
         private void ButtonLogIn_Click(object sender, RoutedEventArgs e)
         {
+            loginData = new User(textboxUsername.Text, passwordboxPassword.Password);
+            bool usernameAvailable = false;
+
+            if (loginData.ValidateUsername() || String.IsNullOrEmpty(loginData.Username))
+            {
+                textboxUsername.Background = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Resources/TextBoxFailed.png")));
+                Console.WriteLine("Username not available");
+            }
+            else
+            {
+                textboxUsername.ClearValue(BackgroundProperty);
+                Console.WriteLine("Username available");
+                usernameAvailable = true;
+                if (loginData.Login())
+                {
+                    NavigationService.Navigate(new LogInPage());
+                } 
+                else
+                {
+                    passwordboxPassword.Background = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Resources/TextBoxFailed.png")));
+                    Console.WriteLine("Wrong password");
+                }
+            }
 
         }
 
@@ -55,6 +81,15 @@ namespace WpfApp1
                 var label = (Label)sender;
                 Keyboard.Focus(label.Target);
             }
+        }
+
+        //
+        //Check Passwordbox changed
+        //
+        private void OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            PasswordBox pb = sender as PasswordBox;
+            pb.Tag = (!string.IsNullOrEmpty(pb.Password)).ToString();
         }
     }
 }

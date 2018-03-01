@@ -263,7 +263,7 @@
         <Image x:Name="imageEmailIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconEmail.png" Margin="0,100,270,0"/>
 
         <PasswordBox x:Name="passwordboxPassword" Style="{StaticResource PasswordboxStyle}" Margin="0,200,0,0"/>
-        <Label x:Name="labelCuebannerPassword" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerPasswordStyle}" Content="Password" Target="{x:Reference passwordboxPassword}" Margin="80,200,0,0"/>
+        <Label x:Name="labelCuebannerPassword" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerPasswordStyle}" Content="Password (Min. 8 chars)" Target="{x:Reference passwordboxPassword}" Margin="80,200,0,0"/>
         <Image x:Name="imagePasswordIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconPassword.png" Margin="0,200,270,0"/>
 
         <TextBox x:Name="textboxBetaKey" Style="{StaticResource TextboxStyle}" Text="{Binding InputText,Mode=TwoWay}" Margin="0,300,0,0"/>

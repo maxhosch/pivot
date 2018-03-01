@@ -90,6 +90,7 @@ namespace WpfApp1
                 betakeyAvailable = true;
             }
 
+            //Create User
             if (usernameAvailable && emailAvailable && passwordAvailable && betakeyAvailable)
             {
                 try
@@ -129,7 +130,7 @@ namespace WpfApp1
         }
 
         //
-        //Check Password changed
+        //Check Passwordbox changed
         //
         private void OnPasswordChanged(object sender, RoutedEventArgs e)
         {
