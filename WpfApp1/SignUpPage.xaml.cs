@@ -27,9 +27,6 @@ namespace WpfApp1
         }
 
         //Init variables
-        String username;
-        String password;
-        String email;
         String betakey;
         User userdata;
 

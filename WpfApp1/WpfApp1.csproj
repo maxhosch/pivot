@@ -75,6 +75,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AccountsPage.xaml.cs">
+      <DependentUpon>AccountsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ChatsPage.xaml.cs">
+      <DependentUpon>ChatsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GamesPage.xaml.cs">
+      <DependentUpon>GamesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LauncherWindow.xaml.cs">
+      <DependentUpon>LauncherWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LogInPage.xaml.cs">
       <DependentUpon>LogInPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -82,6 +94,22 @@
     <Compile Include="SignUpPage.xaml.cs">
       <DependentUpon>SignUpPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="AccountsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChatsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GamesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LauncherWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LogInPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -200,6 +228,24 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\DesktopIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Launcher2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BackgroundLauncher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\TopbarLauncher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LogoLauncher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\TopbarItemBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\TopbarItemBackgroundActivated.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

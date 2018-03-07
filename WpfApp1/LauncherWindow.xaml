@@ -1,0 +1,91 @@
+﻿<Window x:Class="WpfApp1.LauncherWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="LauncherWindow" Height="720" Width="1280"  WindowStartupLocation="CenterScreen" FontFamily="Open Sans" Background="{x:Null}" Foreground="Black" ResizeMode="CanMinimize" IsHitTestVisible="True" WindowStyle="None" AllowsTransparency="True" Icon="Resources/DesktopIcon.png">
+
+    <Window.Resources>
+        <!--Label Header-->
+        <Style x:Key="LabelHeaderStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="LightGray"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="85"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="#313940"/>
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <ImageBrush ImageSource="pack://application:,,,/Resources/TopbarItemBackground.png" Stretch="UniformToFill"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--ImageBoxTopTools-->
+        <Style x:Key="ToolboxStyle" TargetType="Image">
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
+        </Style>
+
+        <!--ImageBoxLogo-->
+        <Style x:Key="LogoStyle" TargetType="Image">
+            <Setter Property="Source" Value="pack://application:,,,/Resources/LogoLauncher.png"/>
+            <Setter Property="Margin" Value="15,15,0,0"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Height" Value="54"/>
+            <Setter Property="Width" Value="72"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+        </Style>
+
+        <!--ImageBoxTopBar-->
+        <Style x:Key="TopBarLauncherStyle" TargetType="Image">
+            <Setter Property="Source" Value="Resources/TopbarLauncher.png"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Height" Value="85"/>
+            <Setter Property="Width" Value="1280"/>
+            <!--<Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>-->
+        </Style>
+
+        <!--Launcher Frame-->
+        <Style x:Key="LauncherFrameStyle" TargetType="Frame">
+            <Setter Property="Height" Value="635"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="pack://application:,,,/Resources/BackgroundLauncher.png" Stretch="UniformToFill"/>
+        </Grid.Background>
+
+        <Image x:Name="imageTopBar" MouseDown="ImageTopBar_MouseDown" Style="{StaticResource TopBarLauncherStyle}"/>
+        <Image x:Name="imageClose" MouseDown="ImageClose_MouseDown" MouseEnter="ImageClose_MouseEnter" MouseLeave="ImageClose_MouseLeave" Style="{StaticResource ToolboxStyle}" Margin="0,0,0,0" Source="Resources/Close.png"/>
+        <Image x:Name="imageMinimize" MouseDown="ImageMinimize_MouseDown" MouseEnter="ImageMinimize_MouseEnter" MouseLeave="ImageMinimize_MouseLeave" Style="{StaticResource ToolboxStyle}" Margin="0,0,30,0" Source="Resources/Minimize.png"/>
+        <Image x:Name="imageLogo" Style="{StaticResource LogoStyle}"/>
+        
+        <!--Top TABS-->
+        <Label x:Name="labelGAMES" MouseDown="LabelGAMES_MouseDown" Style="{StaticResource LabelHeaderStyle}" Content="GAMES" Margin="-850,0,0,0"/>
+        <Label x:Name="labelCHATS" MouseDown="LabelCHATS_MouseDown" Style="{StaticResource LabelHeaderStyle}" Content="CHATS" Margin="-607,0,0,0"/>
+        <Label x:Name="labelACCOUNTS" MouseDown="LabelACCOUNTS_MouseDown" Style="{StaticResource LabelHeaderStyle}" Content="ACCOUNTS" Margin="-362,0,0,0"/>
+
+        <Frame x:Name="LauncherFrame" Style="{StaticResource LauncherFrameStyle}" NavigationUIVisibility="Hidden"/>
+
+    </Grid>
+</Window>

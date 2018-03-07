@@ -35,7 +35,6 @@ namespace WpfApp1
         private void ButtonLogIn_Click(object sender, RoutedEventArgs e)
         {
             loginData = new User(textboxUsername.Text, passwordboxPassword.Password);
-            bool usernameAvailable = false;
 
             if (loginData.ValidateUsername() || String.IsNullOrEmpty(loginData.Username))
             {
@@ -46,15 +45,20 @@ namespace WpfApp1
             {
                 textboxUsername.ClearValue(BackgroundProperty);
                 Console.WriteLine("Username available");
-                usernameAvailable = true;
-                if (loginData.Login())
-                {
-                    NavigationService.Navigate(new LogInPage());
-                } 
-                else
+
+                if (!loginData.Login())
                 {
                     passwordboxPassword.Background = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Resources/TextBoxFailed.png")));
                     Console.WriteLine("Wrong password");
+                } 
+                else
+                {
+                    //NavigationService.Navigate(new LogInPage());
+                    LauncherWindow launcher = new LauncherWindow();
+                    launcher.Show();
+
+                    var loginWindow = Window.GetWindow(this);
+                    loginWindow.Close();
                 }
             }
 
@@ -72,7 +76,7 @@ namespace WpfApp1
         }
 
         //
-        //Cuebanner Label Button
+        //Cuebanner Label click focuses textbox
         //
         private void LabelCuebanner_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
