@@ -5,10 +5,174 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfApp1"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="635" d:DesignWidth="1280"
       Title="AccountsPage">
 
-    <Grid>
+    <Page.Resources>
+
+        <!--Label Header-->
+        <Style x:Key="LabelHeaderStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="314"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="FontSize" Value="24"/>
+        </Style>
+
+        <!--ContextMenu Style-->
+        <Style x:Key="ContextMenuStyle" TargetType="ContextMenu">
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Grid.IsSharedSizeScope" Value="true" />
+            <Setter Property="HasDropShadow" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ContextMenu}">
+                        <Border x:Name="Border" Background="#29353b" BorderThickness="1">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="#6a7276" />
+                            </Border.BorderBrush>
+                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasDropShadow" Value="true">
+                                <Setter TargetName="Border" Property="Margin" Value="0,10,0,0" />
+                                <!--<Setter TargetName="Border" Property="CornerRadius" Value="4" />-->
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--ContextMenu Item-->
+        <Style x:Key="ContextMenuItemStyle" TargetType="MenuItem">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+
+        <!--Label Sidebar-->
+        <Style x:Key="LabelSidebarStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="auto"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+
+        <!--Image Sidebar-->
+        <Style x:Key="ImageSidebarStyle" TargetType="Image">
+            <Setter Property="Source" Value="pack://application:,,,/Resources/SortBy.png"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="ContextMenuService.IsEnabled" Value="False"/>
+        </Style>
+
+        <!--ImageBoxSideBarBackground-->
+        <Style x:Key="SidebarBackgroundStyle" TargetType="Image">
+            <Setter Property="Source" Value="pack://application:,,,/Resources/SidebarLauncher.png"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="635"/>
+            <!--<Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>-->
+        </Style>
+
+        <!--ListView Style-->
+        <Style x:Key="ListViewAccountsStyle" TargetType="ListView">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="800"/>
+            <Setter Property="Height" Value="400"/>
+            <Setter Property="Margin" Value="0,0,100,0"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="VirtualizingPanel.IsVirtualizing" Value="True"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+        </Style>
         
+        <!--ListView Item Style-->
+        <DataTemplate x:Key="AccountListDataTemplate" DataType="data:Accounts">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="100">
+                <Image Name="image" Source="{Binding App}" HorizontalAlignment="Center" Width="64" RenderOptions.BitmapScalingMode="HighQuality"/>
+                <StackPanel Margin="20,20,0,0">
+                    <TextBlock Text="{Binding Username}" HorizontalAlignment="Left" FontSize="20" />
+                    <TextBlock Text="{Binding Email}" HorizontalAlignment="Left" FontSize="12" />
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+
+        <!--Button-->
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <ImageBrush ImageSource="pack://application:,,,/Resources/ButtonLogIn.png" Stretch="Fill"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="pack://application:,,,/Resources/ButtonLogInHover.png" Stretch="Fill"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="Button.IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="pack://application:,,,/Resources/ButtonLogInActivated.png" Stretch="Fill"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Image x:Name="imageTopBar" Style="{StaticResource SidebarBackgroundStyle}"/>
+        <Label x:Name="labelHeader" Style="{StaticResource LabelHeaderStyle}" Content="Accounts" Margin="350,50,0,0"/>
+        <Image x:Name="imageSortBy" MouseDown="Image_MouseDown" Style="{StaticResource ImageSidebarStyle}" Margin="20,25,0,0">
+            <Image.ContextMenu>
+                <ContextMenu Style="{StaticResource ContextMenuStyle}">
+                    <MenuItem x:Name="itemApp" Click="ItemApp_Click" Style="{StaticResource ContextMenuItemStyle}" Header="App"/>
+                    <MenuItem x:Name="itemUsername" Click="ItemUsername_Click" Style="{StaticResource ContextMenuItemStyle}" Header="Username"/>
+                    <MenuItem x:Name="itemEmail" Click="ItemEmail_Click" Style="{StaticResource ContextMenuItemStyle}" Header="Email"/>
+                </ContextMenu>
+            </Image.ContextMenu>
+        </Image>
+        <Button x:Name="buttonDelete" Click="ButtonDelete_Click" Style="{StaticResource ButtonStyle}" Content="Delete" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="25,0,0,115"/>
+
+        <ListView Name="ListViewAccounts"
+                  ItemsSource="{Binding Accounts}" 
+                  MouseDown="ListView_ItemClick" 
+                  ItemTemplate="{StaticResource AccountListDataTemplate}"
+                  Style="{StaticResource ListViewAccountsStyle}">
+        </ListView>
     </Grid>
 </Page>

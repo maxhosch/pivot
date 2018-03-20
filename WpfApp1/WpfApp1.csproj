@@ -247,5 +247,15 @@
   <ItemGroup>
     <Resource Include="Resources\TopbarItemBackgroundActivated.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconOrigin.png" />
+    <Resource Include="Resources\IconSteam.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SidebarLauncher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SortBy.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

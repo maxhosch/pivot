@@ -33,6 +33,19 @@
             </Style.Triggers>
         </Style>
 
+        <!--Label Username-->
+        <Style x:Key="LabelUsernameStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="LightGray"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="64"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalContentAlignment" Value="Right"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalContentAlignment" Value="Bottom"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Background" Value="{x:Null}"/>
+        </Style>
+
         <!--ImageBoxTopTools-->
         <Style x:Key="ToolboxStyle" TargetType="Image">
             <Setter Property="VerticalAlignment" Value="Top"/>
@@ -79,6 +92,9 @@
         <Image x:Name="imageClose" MouseDown="ImageClose_MouseDown" MouseEnter="ImageClose_MouseEnter" MouseLeave="ImageClose_MouseLeave" Style="{StaticResource ToolboxStyle}" Margin="0,0,0,0" Source="Resources/Close.png"/>
         <Image x:Name="imageMinimize" MouseDown="ImageMinimize_MouseDown" MouseEnter="ImageMinimize_MouseEnter" MouseLeave="ImageMinimize_MouseLeave" Style="{StaticResource ToolboxStyle}" Margin="0,0,30,0" Source="Resources/Minimize.png"/>
         <Image x:Name="imageLogo" Style="{StaticResource LogoStyle}"/>
+        
+        <!--User info-->
+        <Label x:Name="labelUsername" MouseDown="LabelGAMES_MouseDown" Style="{StaticResource LabelUsernameStyle}" Content="unknown" Margin="0,0,30,0"/>
         
         <!--Top TABS-->
         <Label x:Name="labelGAMES" MouseDown="LabelGAMES_MouseDown" Style="{StaticResource LabelHeaderStyle}" Content="GAMES" Margin="-850,0,0,0"/>

@@ -484,8 +484,10 @@ namespace WpfApp1
                 else
                 {
                     XmlDeclaration xmlDeclaration = this.CreateXmlDeclaration("1.0", "UTF-8", null);
-                    XmlElement root = this.CreateElement("Users");
+                    XmlElement root = this.DocumentElement;
                     this.InsertAfter(xmlDeclaration, root);
+                    XmlElement Users = this.CreateElement("Users");
+                    this.AppendChild(Users);
                     this.Save(fileName);
                 }
             }
@@ -611,9 +613,9 @@ namespace WpfApp1
 
         public class User
         {
-            string Name { get; set; }
-            string Password { get; set; }
-            int App { get; set; }
+            public string Name { get; private set; }
+            public string Password { get; private set; }
+            public int App { get; private set; }
 
             public User()
             {

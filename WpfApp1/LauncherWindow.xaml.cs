@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.LocalAuth;
 
 namespace WpfApp1
 {
@@ -20,10 +21,12 @@ namespace WpfApp1
     /// </summary>
     public partial class LauncherWindow : Window
     {
+
         public LauncherWindow()
         {
             InitializeComponent();
             SwitchActiveTab(1);
+            LoadAccounts();
         }
 
         //
@@ -160,6 +163,14 @@ namespace WpfApp1
                     Console.WriteLine("Something is wrong");
                     break;
             }
+        }
+
+        //
+        //Load Accounts
+        //
+        private void LoadAccounts()
+        {
+            new LauncherCredentials("Accounts.xml");
         }
     }
 }

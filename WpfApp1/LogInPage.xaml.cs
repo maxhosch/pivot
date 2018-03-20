@@ -56,6 +56,7 @@ namespace WpfApp1
                     //NavigationService.Navigate(new LogInPage());
                     LauncherWindow launcher = new LauncherWindow();
                     launcher.Show();
+                    launcher.labelUsername.Content = loginData.Username; //Forward Username
 
                     var loginWindow = Window.GetWindow(this);
                     loginWindow.Close();
