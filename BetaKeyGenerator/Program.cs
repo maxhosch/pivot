@@ -145,9 +145,14 @@ namespace BetaKeyGenerator
     {
         static void Main(string[] args)
         {
-            BetaKey key = BetaKey.GenerateBetaKey();
-            Console.WriteLine("BetaKey: \r\n ID: " + Convert.ToString(key.ID) + "\r\nKey: " + key.Key);
-            Console.ReadKey();
+            Console.WriteLine("Should a betakey be generated? (y/n)");
+            string answer = Console.ReadLine();
+            if (answer.ToLower() == "y")
+            {
+                BetaKey key = BetaKey.GenerateBetaKey();
+                Console.WriteLine("BetaKey: \r\n ID: " + Convert.ToString(key.ID) + "\r\nKey: " + key.Key);
+                Console.ReadKey();
+            }
         }
     }
 }
