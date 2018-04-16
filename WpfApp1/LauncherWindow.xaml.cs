@@ -26,7 +26,8 @@ namespace WpfApp1
         {
             InitializeComponent();
             SwitchActiveTab(1);
-            LoadAccounts();
+            LauncherCredentials.CreateLauncherCredentials("Accounts.xml");
+            //LoadAccounts();
         }
 
         //
@@ -163,14 +164,6 @@ namespace WpfApp1
                     Console.WriteLine("Something is wrong");
                     break;
             }
-        }
-
-        //
-        //Load Accounts
-        //
-        private void LoadAccounts()
-        {
-            new LauncherCredentials("Accounts.xml");
         }
     }
 }

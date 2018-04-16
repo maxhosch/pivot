@@ -345,6 +345,8 @@
             <TextBox x:Name="textboxEmail" Style="{StaticResource TextboxStyle}" Text="{Binding InputText,Mode=TwoWay}" Margin="0,-1,0,0"/>
             <Label x:Name="labelCuebannerEmail" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerEmailStyle}" Content="Email" Target="{x:Reference textboxEmail}" Margin="520,-1,0,0"/>
             <Image x:Name="imageEmailIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconEmail.png" Margin="0,-1,270,0"/>
+
+            <Button x:Name="buttonCreate" Click="ButtonCreate_Click" Style="{StaticResource ButtonStyle}" Content="Create Account" Margin="0,0,140,70"/>
         </Grid>
     </Grid>
 </Page>

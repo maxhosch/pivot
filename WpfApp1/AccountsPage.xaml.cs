@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.LocalAuth;
 
 namespace WpfApp1
 {
@@ -144,9 +145,6 @@ namespace WpfApp1
         //
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            //new LauncherWindow().VarPopupBackground = Visibility.Visible;
-            //MainWindow win = (MainWindow)Application.Current.MainWindow;
-            //win.PopupBlackground.Text = "";
             Popup.Visibility = Visibility.Visible;
         }
 
@@ -159,6 +157,12 @@ namespace WpfApp1
             var lbi = ListViewAccounts.ItemContainerGenerator.ContainerFromItem(clicked) as ListViewItem;
             lbi.IsSelected = true;
             accounts.Remove(ListViewAccounts.SelectedItem as Account);
+        }
+
+        private void ButtonCreate_Click(object sender, RoutedEventArgs e)
+        {
+            LauncherCredentials.CreateUser(textboxUsername.Text, textboxEmail.Text, (int)LauncherCredentials.Apps.Steam);
+            Popup.Visibility = Visibility.Hidden;
         }
     }
 

@@ -466,16 +466,26 @@ namespace WpfApp1
     {
         public class LauncherCredentials : XmlDocument
         {
-            enum Apps { Steam, Origin, Uplay, Lol };
+            public enum Apps { Steam, Origin, Uplay, Lol };
+            private static LauncherCredentials Creds;
+            private string FileName;
 
-            public LauncherCredentials()
+            private LauncherCredentials()
             {
                 XmlDeclaration xmlDeclaration = this.CreateXmlDeclaration("1.0", "UTF-8", null);
                 XmlElement root = this.CreateElement("Users");
                 this.InsertAfter(xmlDeclaration, root);
             }
 
-            public LauncherCredentials(string fileName)
+            public static void CreateLauncherCredentials()
+            {
+                if(LauncherCredentials.Creds == null)
+                {
+                    LauncherCredentials.Creds = new LauncherCredentials();
+                }
+            }
+
+            private LauncherCredentials(string fileName)
             {
                 if (File.Exists(fileName))
                 {
@@ -490,9 +500,29 @@ namespace WpfApp1
                     this.AppendChild(Users);
                     this.Save(fileName);
                 }
+                this.FileName = fileName;
             }
 
-            public User[] GetAllUsers()
+            public static void CreateLauncherCredentials(string filename)
+            {
+                if(LauncherCredentials.Creds == null)
+                {
+                    LauncherCredentials.Creds = new LauncherCredentials(filename);
+                }
+            }
+
+            private void SaveObj()
+            {
+                this.Save(this.FileName);
+                Console.WriteLine("Save to " + FileName);
+            }
+
+            public static void Save()
+            {
+                LauncherCredentials.Creds.SaveObj();
+            }
+
+            private User[] GetAllUsersObj()
             {
                 User[] Users;
 
@@ -510,7 +540,12 @@ namespace WpfApp1
                 return Users;
             }
 
-            public User[] GetAllUsers(int app)
+            public static User[] GetAllUsers()
+            {
+                return LauncherCredentials.Creds.GetAllUsersObj();
+            }
+
+            private User[] GetAllUsersObj(int app)
             {
                 User[] Users;
 
@@ -541,7 +576,12 @@ namespace WpfApp1
                 return Users;
             }
 
-            public User[] GetAllUsers(string name)
+            public static User[] GetAllUsers(int app)
+            {
+                return LauncherCredentials.Creds.GetAllUsersObj(app);
+            }
+
+            private User[] GetAllUsersObj(string name)
             {
                 User[] Users;
 
@@ -572,8 +612,14 @@ namespace WpfApp1
                 return Users;
             }
 
-            public void CreateUser(string username, string password, int app)
+            public static User[] GetAllUsers(string name)
             {
+                return LauncherCredentials.Creds.GetAllUsersObj(name);
+            }
+
+            private void CreateUserObj(string username, string password, int app)
+            {
+                XmlNode Users = this.GetElementsByTagName("Users")[0];
                 XmlElement NewUser = this.CreateElement("User");
                 NewUser.SetAttribute("App", app.ToString());
                 XmlElement Name = this.CreateElement("Name");
@@ -582,9 +628,16 @@ namespace WpfApp1
                 XmlElement Password = this.CreateElement("Password");
                 Password.InnerText = password;
                 NewUser.AppendChild(Password);
+                Users.AppendChild(NewUser);
             }
 
-            public User GetFirstUser(string name)
+            public static void CreateUser(string username, string password, int app)
+            {
+                LauncherCredentials.Creds.CreateUserObj(username, password, app);
+                Save();
+            }
+
+            private User GetFirstUserObj(string name)
             {
                 foreach (XmlNode XmlUser in this.GetElementsByTagName("User"))
                 {
@@ -597,7 +650,12 @@ namespace WpfApp1
                 throw new UnknownUserException(String.Format("A User with name {0} could not be found.", name));
             }
 
-            public User GetFirstUser(int app)
+            public static User GetFirstUser(string name)
+            {
+                return LauncherCredentials.Creds.GetFirstUserObj(name);
+            }
+
+            private User GetFirstUserObj(int app)
             {
                 foreach (XmlNode XmlUser in this.GetElementsByTagName("User"))
                 {
@@ -608,6 +666,11 @@ namespace WpfApp1
                     }
                 }
                 throw new UnknownUserException(String.Format("A User with app {0} could not be found.", app.ToString()));
+            }
+
+            public static User GetFirstUser(int app)
+            {
+                return LauncherCredentials.Creds.GetFirstUserObj(app);
             }
         }
 
