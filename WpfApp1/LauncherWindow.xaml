@@ -102,6 +102,5 @@
         <Label x:Name="labelACCOUNTS" MouseDown="LabelACCOUNTS_MouseDown" Style="{StaticResource LabelHeaderStyle}" Content="ACCOUNTS" Margin="-362,0,0,0"/>
 
         <Frame x:Name="LauncherFrame" Style="{StaticResource LauncherFrameStyle}" NavigationUIVisibility="Hidden"/>
-
     </Grid>
 </Window>

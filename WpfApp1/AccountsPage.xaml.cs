@@ -32,7 +32,47 @@ namespace WpfApp1
         }
 
         //
-        //Image MouseDown
+        //Close Button
+        //
+        private void ImageClose_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                Popup.Visibility = Visibility.Hidden;
+            }
+        }
+        private void ImageClose_MouseEnter(object sender, MouseEventArgs e)
+        {
+            this.imageClose.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/CloseHover.png"));
+        }
+        private void ImageClose_MouseLeave(object sender, MouseEventArgs e)
+        {
+            this.imageClose.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Close.png"));
+        }
+
+        //
+        //Cuebanner Label click focuses textbox
+        //
+        private void LabelCuebanner_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 1) //Note that this is a lie, this does not check for a "real" click
+            {
+                var label = (Label)sender;
+                Keyboard.Focus(label.Target);
+            }
+        }
+
+        //
+        //Check Passwordbox changed
+        //
+        private void OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            PasswordBox pb = sender as PasswordBox;
+            pb.Tag = (!string.IsNullOrEmpty(pb.Password)).ToString();
+        }
+
+        //
+        //ContextMenu Image MouseDown
         //
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -102,10 +142,23 @@ namespace WpfApp1
         //
         //Button Delete
         //
-        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            if (ListViewAccounts.SelectedItem != null)
-                accounts.Remove(ListViewAccounts.SelectedItem as Account);
+            //new LauncherWindow().VarPopupBackground = Visibility.Visible;
+            //MainWindow win = (MainWindow)Application.Current.MainWindow;
+            //win.PopupBlackground.Text = "";
+            Popup.Visibility = Visibility.Visible;
+        }
+
+        //
+        //Image Delete
+        //
+        private void ImageDelete_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            object clicked = (e.OriginalSource as FrameworkElement).DataContext;
+            var lbi = ListViewAccounts.ItemContainerGenerator.ContainerFromItem(clicked) as ListViewItem;
+            lbi.IsSelected = true;
+            accounts.Remove(ListViewAccounts.SelectedItem as Account);
         }
     }
 

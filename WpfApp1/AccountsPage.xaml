@@ -13,7 +13,7 @@
         <!--Label Header-->
         <Style x:Key="LabelHeaderStyle" TargetType="Label">
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Width" Value="314"/>
+            <Setter Property="Width" Value="auto"/>
             <Setter Property="Height" Value="60"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
@@ -21,6 +21,158 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Background" Value="{x:Null}"/>
             <Setter Property="FontSize" Value="24"/>
+        </Style>
+
+        <!--ImageBoxTopTools-->
+        <Style x:Key="ToolboxStyle" TargetType="Image">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
+        </Style>
+
+        <!--TextBox-->
+        <Style x:Key="TextboxStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="Width" Value="398"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="81,0,10,0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CaretBrush" Value="White"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <ImageBrush ImageSource="pack://application:,,,/Resources/TextBox.png"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="False">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <ImageBrush ImageSource="pack://application:,,,/Resources/TextBox.png"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <ImageBrush ImageSource="pack://application:,,,/Resources/TextBoxHover.png"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <ImageBrush ImageSource="pack://application:,,,/Resources/TextBoxActivated.png"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--PasswordBox-->
+        <Style x:Key="PasswordboxStyle" TargetType="PasswordBox">
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="Width" Value="400"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="81,0,81,0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CaretBrush" Value="White"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <ImageBrush ImageSource="pack://application:,,,/Resources/TextBox.png"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Tag" Value="False"/>
+            <EventSetter Event="PasswordChanged" Handler="OnPasswordChanged"/>
+            <Style.Triggers>
+                <!--<Trigger Property="IsFocused" Value="False">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <ImageBrush ImageSource="pack://application:,,,/Resources/TextBox.png"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                -->
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <ImageBrush ImageSource="pack://application:,,,/Resources/TextBoxHover.png"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <ImageBrush ImageSource="pack://application:,,,/Resources/TextBoxActivated.png"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--CluebannerUsername-->
+        <Style x:Key="CluebannerUsernameStyle" TargetType="Label">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding ="{Binding ElementName=textboxUsername, Path=Text.Length}" Value="0"/>
+                        <!--<Condition Binding ="{Binding ElementName=textboxEmail, Path=IsFocused}" Value="False"/>-->
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Visibility" Value="Visible"/>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--CluebannerEmail-->
+        <Style x:Key="CluebannerEmailStyle" TargetType="Label">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding ="{Binding ElementName=textboxEmail, Path=Text.Length}" Value="0"/>
+                        <!--<Condition Binding ="{Binding ElementName=textboxEmail, Path=IsFocused}" Value="False"/>-->
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Visibility" Value="Visible"/>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--CluebannerPassword-->
+        <Style x:Key="CluebannerPasswordStyle" TargetType="Label">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=passwordboxPassword, Path=Tag}" Value="False">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--ImageBoxTextboxIcons-->
+        <Style x:Key="TextboxIconStyle" TargetType="Image">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
         </Style>
 
         <!--ContextMenu Style-->
@@ -76,7 +228,7 @@
             <Setter Property="Width" Value="120"/>
             <Setter Property="Height" Value="60"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="ContextMenuService.IsEnabled" Value="False"/>
         </Style>
 
@@ -93,10 +245,10 @@
         <!--ListView Style-->
         <Style x:Key="ListViewAccountsStyle" TargetType="ListView">
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Width" Value="800"/>
+            <Setter Property="Width" Value="1000"/>
             <Setter Property="Height" Value="400"/>
-            <Setter Property="Margin" Value="0,0,100,0"/>
-            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Background" Value="{x:Null}"/>
             <Setter Property="VirtualizingPanel.IsVirtualizing" Value="True"/>
@@ -105,13 +257,16 @@
         
         <!--ListView Item Style-->
         <DataTemplate x:Key="AccountListDataTemplate" DataType="data:Accounts">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="100">
+            <DockPanel HorizontalAlignment="Left" Height="100" Width="960">
                 <Image Name="image" Source="{Binding App}" HorizontalAlignment="Center" Width="64" RenderOptions.BitmapScalingMode="HighQuality"/>
                 <StackPanel Margin="20,20,0,0">
                     <TextBlock Text="{Binding Username}" HorizontalAlignment="Left" FontSize="20" />
                     <TextBlock Text="{Binding Email}" HorizontalAlignment="Left" FontSize="12" />
                 </StackPanel>
-            </StackPanel>
+                <StackPanel Margin="0,20,0,0" HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <Image Name="imageDelete" MouseDown="ImageDelete_MouseDown" Width="16" Height="16" RenderOptions.BitmapScalingMode="NearestNeighbor" Source="pack://application:,,,/Resources/IconDelete.png"/>
+                </StackPanel>
+            </DockPanel>
         </DataTemplate>
 
         <!--Button-->
@@ -119,8 +274,8 @@
             <Setter Property="OverridesDefaultStyle" Value="True"/>
             <Setter Property="Width" Value="150"/>
             <Setter Property="Height" Value="30"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
             <Setter Property="Background">
                 <Setter.Value>
                     <ImageBrush ImageSource="pack://application:,,,/Resources/ButtonLogIn.png" Stretch="Fill"/>
@@ -155,9 +310,9 @@
     </Page.Resources>
 
     <Grid>
-        <Image x:Name="imageTopBar" Style="{StaticResource SidebarBackgroundStyle}"/>
-        <Label x:Name="labelHeader" Style="{StaticResource LabelHeaderStyle}" Content="Accounts" Margin="350,50,0,0"/>
-        <Image x:Name="imageSortBy" MouseDown="Image_MouseDown" Style="{StaticResource ImageSidebarStyle}" Margin="20,25,0,0">
+        <!--<Image x:Name="imageSideBar" Style="{StaticResource SidebarBackgroundStyle}"/>-->
+        <Label x:Name="labelHeader" Style="{StaticResource LabelHeaderStyle}" Content="Accounts" Margin="140,50,0,0"/>
+        <Image x:Name="imageSortBy" MouseDown="Image_MouseDown" Style="{StaticResource ImageSidebarStyle}" Margin="0,50,140,0">
             <Image.ContextMenu>
                 <ContextMenu Style="{StaticResource ContextMenuStyle}">
                     <MenuItem x:Name="itemApp" Click="ItemApp_Click" Style="{StaticResource ContextMenuItemStyle}" Header="App"/>
@@ -166,13 +321,30 @@
                 </ContextMenu>
             </Image.ContextMenu>
         </Image>
-        <Button x:Name="buttonDelete" Click="ButtonDelete_Click" Style="{StaticResource ButtonStyle}" Content="Delete" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="25,0,0,115"/>
+        <Button x:Name="buttonAdd" Click="ButtonAdd_Click" Style="{StaticResource ButtonStyle}" Content="Add Account" Margin="0,0,140,70"/>
 
         <ListView Name="ListViewAccounts"
                   ItemsSource="{Binding Accounts}" 
                   MouseDown="ListView_ItemClick" 
                   ItemTemplate="{StaticResource AccountListDataTemplate}"
-                  Style="{StaticResource ListViewAccountsStyle}">
+                  Style="{StaticResource ListViewAccountsStyle}"
+                  SelectedItem="{Binding Value, ElementName=slider}">
         </ListView>
+
+        <!--Popup-->
+        <Grid x:Name="Popup" Visibility="Hidden">
+            <Rectangle x:Name="PopupBackground" Fill="#66FFFFFF" Width="1280" Height="635"/>
+            <Image x:Name="PopupImage" Source="pack://application:,,,/Resources/BackgroundPopup.png" Width="400" Height="500" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+            <Image x:Name="imageClose" MouseDown="ImageClose_MouseDown" MouseEnter="ImageClose_MouseEnter" MouseLeave="ImageClose_MouseLeave" Style="{StaticResource ToolboxStyle}" Margin="370,-470,0,0" Source="Resources/Close.png"/>
+            <Label x:Name="labelPopupHeader" Style="{StaticResource LabelHeaderStyle}" Content="Create" Margin="490,120,0,0"/>
+
+            <TextBox x:Name="textboxUsername" Style="{StaticResource TextboxStyle}" Text="{Binding InputText,Mode=TwoWay}" Margin="0,-99,0,0"/>
+            <Label x:Name="labelCuebannerUsername" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerUsernameStyle}" Content="Username" Target="{x:Reference textboxUsername}" Margin="520,-99,0,0"/>
+            <Image x:Name="imageUserIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconUser.png" Margin="0,-99,270,0"/>
+
+            <TextBox x:Name="textboxEmail" Style="{StaticResource TextboxStyle}" Text="{Binding InputText,Mode=TwoWay}" Margin="0,-1,0,0"/>
+            <Label x:Name="labelCuebannerEmail" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerEmailStyle}" Content="Email" Target="{x:Reference textboxEmail}" Margin="520,-1,0,0"/>
+            <Image x:Name="imageEmailIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconEmail.png" Margin="0,-1,270,0"/>
+        </Grid>
     </Grid>
 </Page>

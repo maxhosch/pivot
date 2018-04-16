@@ -257,5 +257,11 @@
   <ItemGroup>
     <Resource Include="Resources\SortBy.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconDelete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BackgroundPopup.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
