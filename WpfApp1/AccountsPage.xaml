@@ -332,7 +332,7 @@
         </ListView>
 
         <!--Popup-->
-        <Grid x:Name="Popup">
+        <Grid x:Name="Popup" Visibility="Hidden">
             <Rectangle x:Name="PopupBackground" Fill="#66FFFFFF" Width="1280" Height="635"/>
             <Image x:Name="PopupImage" Source="pack://application:,,,/Resources/BackgroundPopup.png" Width="400" Height="500" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
             <Image x:Name="imageClose" MouseDown="ImageClose_MouseDown" MouseEnter="ImageClose_MouseEnter" MouseLeave="ImageClose_MouseLeave" Style="{StaticResource ToolboxStyle}" Margin="370,-470,0,0" Source="Resources/Close.png"/>
@@ -351,7 +351,7 @@
             <Image x:Name="imageEmailIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconEmail.png" Margin="0,99,270,0"/>
 
             <Button x:Name="buttonCreate" Click="ButtonCreate_Click" Style="{StaticResource ButtonStyle}" Content="Create Account" HorizontalAlignment="Center" Margin="0,0,0,90"/>
-            <ComboBox Margin="0,250,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" SelectionChanged="ComboBox_SelectionChanged">
+            <ComboBox x:Name="comboBoxApp" Margin="0,250,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" SelectionChanged="ComboBox_SelectionChanged">
                 <ComboBoxItem>Steam</ComboBoxItem>
                 <ComboBoxItem>Origin</ComboBoxItem>
                 <ComboBoxItem>Uplay</ComboBoxItem>

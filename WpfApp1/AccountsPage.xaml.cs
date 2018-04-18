@@ -123,7 +123,7 @@ namespace WpfApp1
                         AppString = "pack://application:,,,/Resources/IconSteam.png";
                         break;
                 }
-               accounts.Add(new Account { App = AppString, Username = User.Name, Password = User.Password, Email = User.Password, Fav = User.Fav });
+               accounts.Add(new Account { App = AppString, Username = User.Name, Password = User.Password, Email = User.Email, Fav = User.Fav });
 
             }
 
@@ -187,14 +187,15 @@ namespace WpfApp1
 
         private void ButtonCreate_Click(object sender, RoutedEventArgs e)
         {
-            LauncherCredentials.CreateUser(textboxUsername.Text, textboxEmail.Text, textboxEmail.Text, (int)LauncherCredentials.Apps.Steam, 0);
+            LauncherCredentials.CreateUser(textboxUsername.Text, passwordboxPassword.Password, textboxEmail.Text, comboBoxApp.SelectedIndex, 0);
             Popup.Visibility = Visibility.Hidden;
             UpdateListView();
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            int selectedIndex = comboBoxApp.SelectedIndex;
+            Console.WriteLine(selectedIndex);
         }
     }
 
