@@ -663,6 +663,13 @@ namespace WpfApp1
                 Save();
             }
 
+            public static void EditUser(string username, int app, string newUsername, string password, string email, int newApp, int fav)
+            {
+                LauncherCredentials.Creds.DeleteUserObj(username, app);
+                LauncherCredentials.Creds.CreateUserObj(newUsername, password, email, newApp, fav);
+                Save();
+            }
+
             private User GetFirstUserObj(string name)
             {
                 foreach (XmlNode XmlUser in this.GetElementsByTagName("User"))
@@ -699,6 +706,26 @@ namespace WpfApp1
             public static User GetFirstUser(int app)
             {
                 return LauncherCredentials.Creds.GetFirstUserObj(app);
+            }
+
+            private User GetUserObj(string username, int app)
+            {
+                XmlNode Users = this.SelectSingleNode("Users");
+                foreach (XmlNode User in Users.SelectNodes("User"))
+                {
+                    if (User.SelectSingleNode("Name").InnerText == username && User.Attributes.GetNamedItem("App").InnerText == app.ToString())
+                    {
+                        int.TryParse(User.Attributes.GetNamedItem("App").InnerText, out int UserApp);
+                        int.TryParse(User.Attributes.GetNamedItem("Fav").InnerText, out int UserFav);
+                        return new User(User.SelectSingleNode("Name").InnerText, User.SelectSingleNode("Password").InnerText, User.SelectSingleNode("Email").InnerText, UserApp, UserFav);
+                    }
+                }
+                throw new UnknownUserException(String.Format("A User with name {0} and app {1} could not be found.", username, app.ToString()));
+            }
+
+            public static User GetUser(string username, int app)
+            {
+                return LauncherCredentials.Creds.GetUserObj(username, app);
             }
         }
 
