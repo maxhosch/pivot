@@ -644,6 +644,25 @@ namespace WpfApp1
                 Save();
             }
 
+            private void DeleteUserObj(string username, int app)
+            {
+                XmlNode Users = this.SelectSingleNode("Users");
+                foreach(XmlNode User in Users.SelectNodes("User"))
+                {
+                    if(User.SelectSingleNode("Name").InnerText == username && User.Attributes.GetNamedItem("App").InnerText == app.ToString())
+                    {
+                        Users.RemoveChild(User);
+                        break;
+                    }
+                }
+            }
+
+            public static void DeleteUser(string username, int app)
+            {
+                LauncherCredentials.Creds.DeleteUserObj(username, app);
+                Save();
+            }
+
             private User GetFirstUserObj(string name)
             {
                 foreach (XmlNode XmlUser in this.GetElementsByTagName("User"))
