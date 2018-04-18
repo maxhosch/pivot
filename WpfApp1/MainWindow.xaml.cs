@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -400,6 +401,7 @@ namespace WpfApp1
 
             public bool Login()
             {
+                Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 if (this.ID == -1)
                 {
                     try
