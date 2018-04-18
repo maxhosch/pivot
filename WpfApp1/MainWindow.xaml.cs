@@ -533,7 +533,8 @@ namespace WpfApp1
                 foreach (XmlNode XmlUser in XmlUsers)
                 {
                     int.TryParse(XmlUser.Attributes.GetNamedItem("App").InnerText, out int UserApp);
-                    Users[Counter] = new User(XmlUser.FirstChild.InnerText, XmlUser.LastChild.InnerText, UserApp);
+                    int.TryParse(XmlUser.Attributes.GetNamedItem("Fav").InnerText, out int UserFav);
+                    Users[Counter] = new User(XmlUser.SelectSingleNode("Name").InnerText, XmlUser.SelectSingleNode("Password").InnerText, XmlUser.SelectSingleNode("Email").InnerText, UserApp, UserFav);
                     Counter++;
                 }
 
@@ -568,7 +569,8 @@ namespace WpfApp1
                     if (XmlUser.Attributes.GetNamedItem("App").InnerText == app.ToString())
                     {
                         int.TryParse(XmlUser.Attributes.GetNamedItem("App").InnerText, out int UserApp);
-                        Users[Counter] = new User(XmlUser.FirstChild.InnerText, XmlUser.LastChild.InnerText, UserApp);
+                        int.TryParse(XmlUser.Attributes.GetNamedItem("Fav").InnerText, out int UserFav);
+                        Users[Counter] = new User(XmlUser.SelectSingleNode("Name").InnerText, XmlUser.SelectSingleNode("Password").InnerText, XmlUser.SelectSingleNode("Email").InnerText, UserApp, UserFav);
                         Counter++;
                     }
                 }
@@ -604,7 +606,8 @@ namespace WpfApp1
                     if (XmlUser.FirstChild.InnerText == name)
                     {
                         int.TryParse(XmlUser.Attributes.GetNamedItem("App").InnerText, out int UserApp);
-                        Users[Counter] = new User(XmlUser.FirstChild.InnerText, XmlUser.LastChild.InnerText, UserApp);
+                        int.TryParse(XmlUser.Attributes.GetNamedItem("Fav").InnerText, out int UserFav);
+                        Users[Counter] = new User(XmlUser.SelectSingleNode("Name").InnerText, XmlUser.SelectSingleNode("Password").InnerText, XmlUser.SelectSingleNode("Email").InnerText, UserApp, UserFav);
                         Counter++;
                     }
                 }
@@ -617,23 +620,27 @@ namespace WpfApp1
                 return LauncherCredentials.Creds.GetAllUsersObj(name);
             }
 
-            private void CreateUserObj(string username, string password, int app)
+            private void CreateUserObj(string username, string password, string email, int app, int fav)
             {
                 XmlNode Users = this.GetElementsByTagName("Users")[0];
                 XmlElement NewUser = this.CreateElement("User");
                 NewUser.SetAttribute("App", app.ToString());
+                NewUser.SetAttribute("Fav", fav.ToString());
                 XmlElement Name = this.CreateElement("Name");
                 Name.InnerText = username;
                 NewUser.AppendChild(Name);
                 XmlElement Password = this.CreateElement("Password");
                 Password.InnerText = password;
                 NewUser.AppendChild(Password);
+                XmlElement Email = this.CreateElement("Email");
+                Email.InnerText = email;
+                NewUser.AppendChild(Email);
                 Users.AppendChild(NewUser);
             }
 
-            public static void CreateUser(string username, string password, int app)
+            public static void CreateUser(string username, string password, string email, int app, int fav)
             {
-                LauncherCredentials.Creds.CreateUserObj(username, password, app);
+                LauncherCredentials.Creds.CreateUserObj(username, password, email, app, fav);
                 Save();
             }
 
@@ -644,7 +651,8 @@ namespace WpfApp1
                     if (XmlUser.FirstChild.InnerText == name)
                     {
                         int.TryParse(XmlUser.Attributes.GetNamedItem("App").InnerText, out int UserApp);
-                        return new User(XmlUser.FirstChild.InnerText, XmlUser.LastChild.InnerText, UserApp);
+                        int.TryParse(XmlUser.Attributes.GetNamedItem("Fav").InnerText, out int UserFav);
+                        return new User(XmlUser.SelectSingleNode("Name").InnerText, XmlUser.SelectSingleNode("Password").InnerText, XmlUser.SelectSingleNode("Email").InnerText, UserApp, UserFav);
                     }
                 }
                 throw new UnknownUserException(String.Format("A User with name {0} could not be found.", name));
@@ -662,7 +670,8 @@ namespace WpfApp1
                     if (XmlUser.Attributes.GetNamedItem("App").InnerText == app.ToString())
                     {
                         int.TryParse(XmlUser.Attributes.GetNamedItem("App").InnerText, out int UserApp);
-                        return new User(XmlUser.FirstChild.InnerText, XmlUser.LastChild.InnerText, UserApp);
+                        int.TryParse(XmlUser.Attributes.GetNamedItem("Fav").InnerText, out int UserFav);
+                        return new User(XmlUser.SelectSingleNode("Name").InnerText, XmlUser.SelectSingleNode("Password").InnerText, XmlUser.SelectSingleNode("Email").InnerText, UserApp, UserFav);
                     }
                 }
                 throw new UnknownUserException(String.Format("A User with app {0} could not be found.", app.ToString()));
@@ -679,17 +688,22 @@ namespace WpfApp1
             public string Name { get; private set; }
             public string Password { get; private set; }
             public int App { get; private set; }
+            public string Email { get; private set; }
+            public int Fav { get; set; }
 
             public User()
             {
 
             }
 
-            public User(string name, string password, int app)
+            public User(string name, string password, string email, int app, int fav)
             {
-                Name = name;
-                Password = password;
-                App = app;
+                this.Name = name;
+                this.Password = password;
+                this.App = app;
+                this.Email = email;
+                this.Fav = fav;
+
             }
         }
 

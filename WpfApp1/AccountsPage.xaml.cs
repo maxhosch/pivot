@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 using WpfApp1.LocalAuth;
 
 namespace WpfApp1
@@ -103,41 +104,64 @@ namespace WpfApp1
         public void LoadListViewAccounts()
         {
             //var accounts = new List<Account>();
+            string AppString = "pack://application:,,,/Resources/IconSteam.png";
 
-            accounts.Add(new Account { App = "pack://application:,,,/Resources/IconSteam.png", Username = "xxspiderdoenerxx", Email = "justus@istcool.com", Fav = true });
-            accounts.Add(new Account { App = "pack://application:,,,/Resources/IconSteam.png", Username = "1nside", Email = "max@stinkt.com", Fav = false });
-            accounts.Add(new Account { App = "pack://application:,,,/Resources/IconOrigin.png", Username = "BotLouLou", Email = "Smurfing@RealLife.com", Fav = true });
-            accounts.Add(new Account { App = "pack://application:,,,/Resources/IconSteam.png", Username = "test", Email = "test@gmail.com", Fav = true });
-            accounts.Add(new Account { App = "pack://application:,,,/Resources/IconOrigin.png", Username = "iowiionaf", Email = "jiojij3@gmail.com", Fav = true });
+            foreach (User User in LauncherCredentials.GetAllUsers())
+            {
+                switch (User.App)
+                {
+                    case 0: //Steam
+                        AppString = "pack://application:,,,/Resources/IconSteam.png";
+                        break;
+                    case 1: //Origin
+                        AppString = "pack://application:,,,/Resources/IconOrigin.png";
+                        break;
+                    case 2: //Uplay
+                        AppString = "pack://application:,,,/Resources/IconSteam.png";
+                        break;
+                    case 3: //Lol
+                        AppString = "pack://application:,,,/Resources/IconSteam.png";
+                        break;
+                }
+               accounts.Add(new Account { App = AppString, Username = User.Name, Password = User.Password, Email = User.Password, Fav = User.Fav });
+
+            }
 
             ListViewAccounts.ItemsSource = accounts;
 
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListViewAccounts.ItemsSource);
-            view.SortDescriptions.Add(new SortDescription("Email", ListSortDirection.Ascending));
+            view.SortDescriptions.Add(new SortDescription("Username", ListSortDirection.Ascending));
         }
 
         private void ItemApp_Click(object sender, RoutedEventArgs e)
         {
-            UpdateListView("App");
+            SortListView("App");
         }
 
         private void ItemUsername_Click(object sender, RoutedEventArgs e)
         {
-            UpdateListView("Username");
+            SortListView("Username");
         }
 
         private void ItemEmail_Click(object sender, RoutedEventArgs e)
         {
-            UpdateListView("Email");
+           SortListView("Email");
         }
 
-        public void UpdateListView(String SortBy)
+        public void SortListView(String SortBy)
         {
             ICollectionView view = CollectionViewSource.GetDefaultView(ListViewAccounts.ItemsSource);
             view.SortDescriptions.Clear();
             view.SortDescriptions.Add(new SortDescription(SortBy, ListSortDirection.Ascending));
             view.Refresh();
             Console.WriteLine("Sort by " + SortBy);
+        }
+
+        public void UpdateListView()
+        {
+            accounts.Clear();
+            LoadListViewAccounts();
+            Console.WriteLine("ListView refreshed");
         }
 
         //
@@ -154,15 +178,23 @@ namespace WpfApp1
         private void ImageDelete_MouseDown(object sender, MouseButtonEventArgs e)
         {
             object clicked = (e.OriginalSource as FrameworkElement).DataContext;
-            var lbi = ListViewAccounts.ItemContainerGenerator.ContainerFromItem(clicked) as ListViewItem;
-            lbi.IsSelected = true;
+            //ListViewItem lbi = ListViewAccounts.ItemContainerGenerator.ContainerFromItem(clicked) as ListViewItem;
+            ListViewAccounts.SelectedItem = clicked;
+            ListViewAccounts.ScrollIntoView(clicked);
+            ListViewAccounts.Focus();
             accounts.Remove(ListViewAccounts.SelectedItem as Account);
         }
 
         private void ButtonCreate_Click(object sender, RoutedEventArgs e)
         {
-            LauncherCredentials.CreateUser(textboxUsername.Text, textboxEmail.Text, (int)LauncherCredentials.Apps.Steam);
+            LauncherCredentials.CreateUser(textboxUsername.Text, textboxEmail.Text, textboxEmail.Text, (int)LauncherCredentials.Apps.Steam, 0);
             Popup.Visibility = Visibility.Hidden;
+            UpdateListView();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 
@@ -180,8 +212,10 @@ namespace WpfApp1
     {
         private string app;
         private string username;
+        private string password;
         private string email;
-        private bool fav;
+        private int fav;
+
         public string App
         {
             get { return this.app; }
@@ -206,6 +240,18 @@ namespace WpfApp1
                 }
             }
         }
+        public string Password
+        {
+            get { return this.password; }
+            set
+            {
+                if (this.password != value)
+                {
+                    this.password = value;
+                    this.NotifyPropertyChanged("Password");
+                }
+            }
+        }
         public string Email
         {
             get { return this.email; }
@@ -218,7 +264,7 @@ namespace WpfApp1
                 }
             }
         }
-        public bool Fav
+        public int Fav
         {
             get { return this.fav; }
             set

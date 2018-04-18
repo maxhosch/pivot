@@ -29,7 +29,7 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Height" Value="30"/>
             <Setter Property="Width" Value="30"/>
-            <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
         </Style>
 
         <!--TextBox-->
@@ -157,7 +157,7 @@
         <Style x:Key="CluebannerPasswordStyle" TargetType="Label">
             <Setter Property="Visibility" Value="Hidden"/>
             <Setter Property="Foreground" Value="Gray"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=passwordboxPassword, Path=Tag}" Value="False">
@@ -254,7 +254,7 @@
             <Setter Property="VirtualizingPanel.IsVirtualizing" Value="True"/>
             <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
         </Style>
-        
+
         <!--ListView Item Style-->
         <DataTemplate x:Key="AccountListDataTemplate" DataType="data:Accounts">
             <DockPanel HorizontalAlignment="Left" Height="100" Width="960">
@@ -332,7 +332,7 @@
         </ListView>
 
         <!--Popup-->
-        <Grid x:Name="Popup" Visibility="Hidden">
+        <Grid x:Name="Popup">
             <Rectangle x:Name="PopupBackground" Fill="#66FFFFFF" Width="1280" Height="635"/>
             <Image x:Name="PopupImage" Source="pack://application:,,,/Resources/BackgroundPopup.png" Width="400" Height="500" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
             <Image x:Name="imageClose" MouseDown="ImageClose_MouseDown" MouseEnter="ImageClose_MouseEnter" MouseLeave="ImageClose_MouseLeave" Style="{StaticResource ToolboxStyle}" Margin="370,-470,0,0" Source="Resources/Close.png"/>
@@ -342,11 +342,21 @@
             <Label x:Name="labelCuebannerUsername" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerUsernameStyle}" Content="Username" Target="{x:Reference textboxUsername}" Margin="520,-99,0,0"/>
             <Image x:Name="imageUserIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconUser.png" Margin="0,-99,270,0"/>
 
-            <TextBox x:Name="textboxEmail" Style="{StaticResource TextboxStyle}" Text="{Binding InputText,Mode=TwoWay}" Margin="0,-1,0,0"/>
-            <Label x:Name="labelCuebannerEmail" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerEmailStyle}" Content="Email" Target="{x:Reference textboxEmail}" Margin="520,-1,0,0"/>
-            <Image x:Name="imageEmailIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconEmail.png" Margin="0,-1,270,0"/>
+            <PasswordBox x:Name="passwordboxPassword" Style="{StaticResource PasswordboxStyle}" Margin="0,-1,0,0"/>
+            <Label x:Name="labelCuebannerPassword" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerPasswordStyle}" Content="Password" Target="{x:Reference passwordboxPassword}" Margin="520,-1,0,0"/>
+            <Image x:Name="imagePasswordIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconPassword.png" Margin="0,-1,270,0"/>
 
-            <Button x:Name="buttonCreate" Click="ButtonCreate_Click" Style="{StaticResource ButtonStyle}" Content="Create Account" Margin="0,0,140,70"/>
+            <TextBox x:Name="textboxEmail" Style="{StaticResource TextboxStyle}" Text="{Binding InputText,Mode=TwoWay}" Margin="0,99,0,0"/>
+            <Label x:Name="labelCuebannerEmail" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerEmailStyle}" Content="Email" Target="{x:Reference textboxEmail}" Margin="520,99,0,0"/>
+            <Image x:Name="imageEmailIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconEmail.png" Margin="0,99,270,0"/>
+
+            <Button x:Name="buttonCreate" Click="ButtonCreate_Click" Style="{StaticResource ButtonStyle}" Content="Create Account" HorizontalAlignment="Center" Margin="0,0,0,90"/>
+            <ComboBox Margin="0,250,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBoxItem>Steam</ComboBoxItem>
+                <ComboBoxItem>Origin</ComboBoxItem>
+                <ComboBoxItem>Uplay</ComboBoxItem>
+                <ComboBoxItem>League Of Legends</ComboBoxItem>
+            </ComboBox>
         </Grid>
     </Grid>
 </Page>
