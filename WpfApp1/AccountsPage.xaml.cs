@@ -40,16 +40,19 @@ namespace WpfApp1
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                Popup.Visibility = Visibility.Hidden;
+                FrameworkElement parent = (FrameworkElement)((Image)sender).Parent;
+                parent.Visibility = Visibility.Hidden;
             }
         }
         private void ImageClose_MouseEnter(object sender, MouseEventArgs e)
         {
             this.imageClose.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/CloseHover.png"));
+            this.imageCloseEdit.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/CloseHover.png"));
         }
         private void ImageClose_MouseLeave(object sender, MouseEventArgs e)
         {
             this.imageClose.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Close.png"));
+            this.imageCloseEdit.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Close.png"));
         }
 
         //
@@ -169,7 +172,7 @@ namespace WpfApp1
         //
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            Popup.Visibility = Visibility.Visible;
+            PopupCreate.Visibility = Visibility.Visible;
         }
 
         //
@@ -189,15 +192,54 @@ namespace WpfApp1
 
         private void ButtonCreate_Click(object sender, RoutedEventArgs e)
         {
-            LauncherCredentials.CreateUser(textboxUsername.Text, passwordboxPassword.Password, textboxEmail.Text, comboBoxApp.SelectedIndex, 0);
-            Popup.Visibility = Visibility.Hidden;
-            UpdateListView();
+            if(LauncherCredentials.GetUser(textboxUsername.Text, comboBoxApp.SelectedIndex) == null)
+            {
+                LauncherCredentials.CreateUser(textboxUsername.Text, passwordboxPassword.Password, textboxEmail.Text, comboBoxApp.SelectedIndex, 0);
+                PopupCreate.Visibility = Visibility.Hidden;
+                UpdateListView();
+            }
+            else
+            {
+                //error msg
+                Console.WriteLine("User exists already");
+            }
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int selectedIndex = comboBoxApp.SelectedIndex;
             Console.WriteLine(selectedIndex);
+        }
+
+        private void ImageEdit_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            object clicked = (e.OriginalSource as FrameworkElement).DataContext;
+            ListViewAccounts.SelectedItem = clicked;
+            ListViewAccounts.ScrollIntoView(clicked);
+            ListViewAccounts.Focus();
+            Account accEditPopup = ListViewAccounts.SelectedItem as Account;
+            textboxUsernameEdit.Text = accEditPopup.Username;
+            passwordboxPasswordEdit.Text = accEditPopup.Password;
+            textboxEmailEdit.Text = accEditPopup.Email;
+            comboBoxAppEdit.SelectedIndex = accEditPopup.AppId;
+            PopupEdit.Visibility = Visibility.Visible;
+        }
+
+        private void ButtonEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (LauncherCredentials.GetUser(textboxUsernameEdit.Text, comboBoxAppEdit.SelectedIndex) == null)
+            {
+                Account accEdit = ListViewAccounts.SelectedItem as Account;
+                LauncherCredentials.EditUser(accEdit.Username, accEdit.AppId, textboxUsernameEdit.Text, passwordboxPasswordEdit.Text, textboxEmailEdit.Text, comboBoxAppEdit.SelectedIndex, accEdit.Fav);
+                accounts.Remove(accEdit);
+                PopupEdit.Visibility = Visibility.Hidden;
+                UpdateListView();
+            }
+            else
+            {
+                //error msg
+                Console.WriteLine("User exists already");
+            }
         }
     }
 

@@ -720,7 +720,7 @@ namespace WpfApp1
                         return new User(User.SelectSingleNode("Name").InnerText, User.SelectSingleNode("Password").InnerText, User.SelectSingleNode("Email").InnerText, UserApp, UserFav);
                     }
                 }
-                throw new UnknownUserException(String.Format("A User with name {0} and app {1} could not be found.", username, app.ToString()));
+                return null;
             }
 
             public static User GetUser(string username, int app)
