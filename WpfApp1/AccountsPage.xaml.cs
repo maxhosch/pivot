@@ -123,7 +123,7 @@ namespace WpfApp1
                         AppString = "pack://application:,,,/Resources/IconSteam.png";
                         break;
                 }
-               accounts.Add(new Account { App = AppString, Username = User.Name, Password = User.Password, Email = User.Email, Fav = User.Fav });
+               accounts.Add(new Account { App = AppString, AppId = User.App, Username = User.Name, Password = User.Password, Email = User.Email, Fav = User.Fav });
 
             }
 
@@ -182,7 +182,9 @@ namespace WpfApp1
             ListViewAccounts.SelectedItem = clicked;
             ListViewAccounts.ScrollIntoView(clicked);
             ListViewAccounts.Focus();
-            accounts.Remove(ListViewAccounts.SelectedItem as Account);
+            Account accDel = ListViewAccounts.SelectedItem as Account;
+            LauncherCredentials.DeleteUser(accDel.Username, accDel.AppId);
+            accounts.Remove(accDel);
         }
 
         private void ButtonCreate_Click(object sender, RoutedEventArgs e)
@@ -212,6 +214,7 @@ namespace WpfApp1
     public class Account : INotifyPropertyChanged
     {
         private string app;
+        private int appid;
         private string username;
         private string password;
         private string email;
@@ -225,6 +228,18 @@ namespace WpfApp1
                 if (this.app != value)
                 {
                     this.app = value;
+                    this.NotifyPropertyChanged("App");
+                }
+            }
+        }
+        public int AppId
+        {
+            get { return this.appid; }
+            set
+            {
+                if (this.appid != value)
+                {
+                    this.appid = value;
                     this.NotifyPropertyChanged("App");
                 }
             }
