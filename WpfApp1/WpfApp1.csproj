@@ -263,5 +263,24 @@
   <ItemGroup>
     <Resource Include="Resources\BackgroundPopup.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconEdit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconFav.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconEditHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconDeleteHover.png" />
+    <Resource Include="Resources\IconFavHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconUplay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconLol.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

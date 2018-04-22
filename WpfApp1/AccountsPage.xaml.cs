@@ -87,7 +87,9 @@ namespace WpfApp1
                 ContextMenu contextMenu = image.ContextMenu;
                 contextMenu.PlacementTarget = image;
                 contextMenu.Placement = PlacementMode.RelativePoint;
+                contextMenu.Placement = PlacementMode.Left;
                 contextMenu.VerticalOffset = 35;
+                contextMenu.HorizontalOffset = 96;
                 contextMenu.IsOpen = true;
                 e.Handled = true;
             }
@@ -120,10 +122,10 @@ namespace WpfApp1
                         AppString = "pack://application:,,,/Resources/IconOrigin.png";
                         break;
                     case 2: //Uplay
-                        AppString = "pack://application:,,,/Resources/IconSteam.png";
+                        AppString = "pack://application:,,,/Resources/IconUplay.png";
                         break;
                     case 3: //Lol
-                        AppString = "pack://application:,,,/Resources/IconSteam.png";
+                        AppString = "pack://application:,,,/Resources/IconLol.png";
                         break;
                 }
                accounts.Add(new Account { App = AppString, AppId = User.App, Username = User.Name, Password = User.Password, Email = User.Email, Fav = User.Fav });
@@ -207,10 +209,14 @@ namespace WpfApp1
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //Edit App ComboBox
             int selectedIndex = comboBoxApp.SelectedIndex;
             Console.WriteLine(selectedIndex);
         }
 
+        //
+        //Image Edit
+        //
         private void ImageEdit_MouseDown(object sender, MouseButtonEventArgs e)
         {
             object clicked = (e.OriginalSource as FrameworkElement).DataContext;
@@ -239,6 +245,29 @@ namespace WpfApp1
             {
                 //error msg
                 Console.WriteLine("User exists already");
+            }
+        }
+
+        //
+        //Image Fav
+        //
+        private void ImageFav_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            object clicked = (e.OriginalSource as FrameworkElement).DataContext;
+            ListViewAccounts.SelectedItem = clicked;
+            ListViewAccounts.ScrollIntoView(clicked);
+            ListViewAccounts.Focus();
+            Account accEditPopup = ListViewAccounts.SelectedItem as Account;
+            if(accEditPopup.Fav < 4)
+            {
+                accEditPopup.Fav++;
+                Console.WriteLine("Group set to " + accEditPopup.Fav);
+                LauncherCredentials.EditUser(accEditPopup.Username, accEditPopup.AppId, accEditPopup.Username, accEditPopup.Password, accEditPopup.Email, accEditPopup.AppId, accEditPopup.Fav);
+            } else
+            {
+                accEditPopup.Fav = 0;
+                Console.WriteLine("Group set to " + accEditPopup.Fav);
+                LauncherCredentials.EditUser(accEditPopup.Username, accEditPopup.AppId, accEditPopup.Username, accEditPopup.Password, accEditPopup.Email, accEditPopup.AppId, accEditPopup.Fav);
             }
         }
     }
