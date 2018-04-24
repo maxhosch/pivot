@@ -83,6 +83,86 @@ namespace WpfApp1
         }
     }
 
+    namespace LauncherHandling
+    {
+        public class Steam
+        {
+            /*public static Steam steam { get; private set; }
+            private Process process;
+            private LocalAuth.User user;
+
+            private Steam(Process proc)
+            {
+                process = proc;
+            }
+
+            private Steam(Process proc, LocalAuth.User SteamUser)
+            {
+                user = SteamUser;
+                process = proc;
+            }
+
+            public static void GetSteamProcess()
+            {
+                if(steam == null)
+                {
+                    Process[] procs = Process.GetProcessesByName("Steam.exe");
+                    if (procs.Length == 1)
+                    {
+                        steam = new Steam(procs[0]);
+                    }
+                    else if(procs.Length != 0)
+                    {
+                        //raise steam process exception
+                    }
+                }
+            }*/
+
+            public static void StartSteam()
+            {
+                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                startInfo.FileName = "cmd.exe";
+                startInfo.Arguments = "/C \"C:\\Program Files (x86)\\Steam\\Steam.exe\" -login taito6468 roccattm"; // -login taito6468 roccattm
+                process.StartInfo = startInfo;
+                process.Start();
+            }
+            public static void StartSteam(LocalAuth.User user)
+            {
+                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                startInfo.FileName = "cmd.exe";
+                startInfo.Arguments = String.Format("/C start \"\" \"C:\\Program Files (x86)\\Steam\\Steam.exe\" -login {0} {1}", user.Name, user.Password); // -login taito6468 roccattm
+                process.StartInfo = startInfo;
+                process.Start();
+            }
+
+            public static void StartGame(LocalAuth.User user)
+            {
+                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+                startInfo.FileName = "\"C:\\Program Files (x86)\\Steam\\Steam.exe\"";
+                startInfo.Arguments = String.Format("/C start \"\" steam://rungameid/{0}", user.App.ToString());
+                process.StartInfo = startInfo;
+                process.Start();
+            }
+
+            public static void StopSteam(LocalAuth.User user)
+            {
+                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                startInfo.FileName = "C:\\.exe";
+                startInfo.Arguments = String.Format("/C start \"\" steam://rungameid/{0}", user.App.ToString());
+                process.StartInfo = startInfo;
+                process.Start();
+            }
+        }
+    }
+
     namespace OnlineAuth
     {
         public class TerraDB
