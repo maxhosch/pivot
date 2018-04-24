@@ -162,9 +162,14 @@ namespace WpfApp1
 
         public class Steam : ThirdPartyLauncher
         {
-            public static Steam steam { get; private set; }
+            private static Steam steam;
             private Process process;
             private LocalAuth.User user;
+
+            private Steam()
+            {
+
+            }
 
             private Steam(Process proc)
             {
@@ -190,6 +195,10 @@ namespace WpfApp1
                     else if(procs.Length != 0)
                     {
                         //raise steam process exception
+                    }
+                    else
+                    {
+                        steam = new Steam();
                     }
                 }
             }

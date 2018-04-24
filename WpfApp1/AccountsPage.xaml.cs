@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Linq;
 using WpfApp1.LocalAuth;
+using WpfApp1.LauncherHandling;
 
 namespace WpfApp1
 {
@@ -258,7 +259,12 @@ namespace WpfApp1
         //
         private void ImagePlay_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            PopupNotification.Visibility = Visibility.Visible;
+            object clicked = (e.OriginalSource as FrameworkElement).DataContext;
+            ListViewAccounts.SelectedItem = clicked;
+            ListViewAccounts.ScrollIntoView(clicked);
+            ListViewAccounts.Focus();
+            Account accEditPopup = ListViewAccounts.SelectedItem as Account;
+            Handler.StartLauncher(accEditPopup.AppId);   
         }
 
         //
