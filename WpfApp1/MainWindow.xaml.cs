@@ -111,21 +111,9 @@ namespace WpfApp1
                 }
             }
 
-            public static void StartLauncher(int app)
+            public static void StartLauncher(LocalAuth.User user)
             {
-                switch (app)
-                {
-                    case (int)LauncherCredentials.Apps.Steam:
-                        {
-                            Steam.Start();
-                            break;
-                        }
-                }
-            }
-
-            public static void StartLauncher(LocalAuth.User user, int app)
-            {
-                switch (app)
+                switch (user.App)
                 {
                     case (int)LauncherCredentials.Apps.Steam:
                         {
@@ -135,9 +123,9 @@ namespace WpfApp1
                 }
             }
 
-            public static void StartGame(LocalAuth.User user, int app)
+            public static void StartGame(LocalAuth.User user)
             {
-                switch (app)
+                switch (user.App)
                 {
                     case (int)LauncherCredentials.Apps.Steam:
                         {
@@ -177,12 +165,6 @@ namespace WpfApp1
                 user = null;
             }
 
-            private Steam(LocalAuth.User SteamUser)
-            {
-                user = SteamUser;
-                process = null;
-            }
-
             public static void StartUp()
             {
                 if(steam == null)
@@ -203,20 +185,8 @@ namespace WpfApp1
                 }
             }
 
-            public static void Start()
-            {
-                steam.StartObj();
-            }
-
             public void StartObj()
             {
-                /*Process process = new Process();
-                ProcessStartInfo startInfo = new ProcessStartInfo();
-                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                startInfo.FileName = "cmd.exe";
-                startInfo.Arguments = "/C \"C:\\Program Files (x86)\\Steam\\Steam.exe\""; // -login taito6468 roccattm
-                process.StartInfo = startInfo;
-                process.Start();*/
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.FileName = "C:\\Program Files (x86)\\Steam\\Steam.exe";
                 process = new Process();
@@ -226,18 +196,26 @@ namespace WpfApp1
 
             public static void Start(LocalAuth.User user)
             {
+                steam.StopObj();
                 steam.StartObj(user);
             }
 
             public void StartObj(LocalAuth.User user)
             {
-                ProcessStartInfo startInfo = new ProcessStartInfo();
-                startInfo.FileName = "C:\\Program Files (x86)\\Steam\\Steam.exe";
-                startInfo.Arguments = String.Format("-login {0} {1}", user.Name, user.Password);
-                process = new Process();
-                process.StartInfo = startInfo;
-                process.Start();
-                throw new NotImplementedException();
+                if(user.Name != this.user.Name)
+                {
+                    ProcessStartInfo startInfo = new ProcessStartInfo();
+                    startInfo.FileName = "C:\\Program Files (x86)\\Steam\\Steam.exe";
+                    startInfo.Arguments = String.Format("-login {0} {1}", user.Name, user.Password);
+                    process = new Process();
+                    this.user = user;
+                    process.StartInfo = startInfo;
+                    process.Start();
+                }
+                else
+                {
+                    StartObj();
+                }
             }
 
             public static void StartGame(LocalAuth.User user/*And a game object*/)
