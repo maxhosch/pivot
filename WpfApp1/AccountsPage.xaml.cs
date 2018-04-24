@@ -264,7 +264,7 @@ namespace WpfApp1
             ListViewAccounts.ScrollIntoView(clicked);
             ListViewAccounts.Focus();
             Account accEditPopup = ListViewAccounts.SelectedItem as Account;
-            Handler.StartLauncher(accEditPopup.AppId);   
+            Handler.StartLauncher(new User(accEditPopup));   
         }
 
         //

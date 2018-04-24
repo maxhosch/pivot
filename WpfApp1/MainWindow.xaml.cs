@@ -169,10 +169,20 @@ namespace WpfApp1
             {
                 if(steam == null)
                 {
-                    Process[] procs = Process.GetProcessesByName("Steam.exe");
+                    Process[] procs = Process.GetProcessesByName("steam");
                     if (procs.Length == 1)
                     {
+                        Console.WriteLine("Steam already running...");
+                        Console.WriteLine(procs[0]);
                         steam = new Steam(procs[0]);
+                        if(steam.process != null)
+                        {
+                            Console.WriteLine("Procss is unequal to null");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Process is equal to null");
+                        }
                     }
                     else if(procs.Length != 0)
                     {
@@ -202,7 +212,24 @@ namespace WpfApp1
 
             public void StartObj(LocalAuth.User user)
             {
-                if(user.Name != this.user.Name)
+                if(this.user != null)
+                {
+                    if (user.Name != this.user.Name)
+                    {
+                        ProcessStartInfo startInfo = new ProcessStartInfo();
+                        startInfo.FileName = "C:\\Program Files (x86)\\Steam\\Steam.exe";
+                        startInfo.Arguments = String.Format("-login {0} {1}", user.Name, user.Password);
+                        process = new Process();
+                        this.user = user;
+                        process.StartInfo = startInfo;
+                        process.Start();
+                    }
+                    else
+                    {
+                        StartObj();
+                    }
+                }
+                else
                 {
                     ProcessStartInfo startInfo = new ProcessStartInfo();
                     startInfo.FileName = "C:\\Program Files (x86)\\Steam\\Steam.exe";
@@ -211,10 +238,6 @@ namespace WpfApp1
                     this.user = user;
                     process.StartInfo = startInfo;
                     process.Start();
-                }
-                else
-                {
-                    StartObj();
                 }
             }
 
@@ -235,9 +258,16 @@ namespace WpfApp1
 
             public void StopObj()
             {
-                if(process != null)
+                if (process != null)
                 {
-                    process.Kill();
+                    try
+                    {
+                        process.Kill();
+                    }
+                    catch(InvalidOperationException e)
+                    {
+                        Console.WriteLine(String.Format("Exception {0} caught", e.Message));
+                    }
                 }
             }
         }
@@ -900,6 +930,15 @@ namespace WpfApp1
             public User()
             {
 
+            }
+
+            public User(Account acc)
+            {
+                this.Name = acc.Username;
+                this.Password = acc.Password;
+                this.App = acc.AppId;
+                this.Email = acc.Email;
+                this.Fav = acc.Fav;
             }
 
             public User(string name, string password, string email, int app, int fav)
