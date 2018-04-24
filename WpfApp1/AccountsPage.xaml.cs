@@ -48,11 +48,13 @@ namespace WpfApp1
         {
             this.imageClose.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/CloseHover.png"));
             this.imageCloseEdit.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/CloseHover.png"));
+            this.imageCloseNotification.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/CloseHover.png"));
         }
         private void ImageClose_MouseLeave(object sender, MouseEventArgs e)
         {
             this.imageClose.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Close.png"));
             this.imageCloseEdit.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Close.png"));
+            this.imageCloseNotification.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Close.png"));
         }
 
         //
@@ -110,6 +112,7 @@ namespace WpfApp1
         {
             //var accounts = new List<Account>();
             string AppString = "pack://application:,,,/Resources/IconSteam.png";
+            string FavString = "pack://application:,,,/Resources/IconFav.png";
 
             foreach (User User in LauncherCredentials.GetAllUsers())
             {
@@ -128,36 +131,60 @@ namespace WpfApp1
                         AppString = "pack://application:,,,/Resources/IconLol.png";
                         break;
                 }
-               accounts.Add(new Account { App = AppString, AppId = User.App, Username = User.Name, Password = User.Password, Email = User.Email, Fav = User.Fav });
+                switch (User.Fav)
+                {
+                    case 0: //Normal
+                        FavString = "pack://application:,,,/Resources/IconFav.png";
+                        break;
+                    case 1: //Blue
+                        FavString = "pack://application:,,,/Resources/IconFavBlue.png";
+                        break;
+                    case 2: //Red
+                        FavString = "pack://application:,,,/Resources/IconFavRed.png";
+                        break;
+                    case 3: //Green
+                        FavString = "pack://application:,,,/Resources/IconFavGreen.png";
+                        break;
+                    case 4: //Yellow
+                        FavString = "pack://application:,,,/Resources/IconFavYellow.png";
+                        break;
+                }
+                accounts.Add(new Account { App = AppString, AppId = User.App, Username = User.Name, Password = User.Password, Email = User.Email, FavString = FavString, Fav = User.Fav });
 
             }
 
             ListViewAccounts.ItemsSource = accounts;
 
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListViewAccounts.ItemsSource);
+            view.SortDescriptions.Clear();
             view.SortDescriptions.Add(new SortDescription("Username", ListSortDirection.Ascending));
         }
 
         private void ItemApp_Click(object sender, RoutedEventArgs e)
         {
-            SortListView("App");
+            SortListView("AppId", ListSortDirection.Ascending);
         }
 
         private void ItemUsername_Click(object sender, RoutedEventArgs e)
         {
-            SortListView("Username");
+            SortListView("Username", ListSortDirection.Ascending);
         }
 
         private void ItemEmail_Click(object sender, RoutedEventArgs e)
         {
-           SortListView("Email");
+            SortListView("Email", ListSortDirection.Ascending);
         }
 
-        public void SortListView(String SortBy)
+        private void ItemFav_Click(object sender, RoutedEventArgs e)
+        {
+            SortListView("Fav", ListSortDirection.Descending);
+        }
+
+        public void SortListView(String SortBy, ListSortDirection Direction)
         {
             ICollectionView view = CollectionViewSource.GetDefaultView(ListViewAccounts.ItemsSource);
             view.SortDescriptions.Clear();
-            view.SortDescriptions.Add(new SortDescription(SortBy, ListSortDirection.Ascending));
+            view.SortDescriptions.Add(new SortDescription(SortBy, Direction));
             view.Refresh();
             Console.WriteLine("Sort by " + SortBy);
         }
@@ -187,14 +214,26 @@ namespace WpfApp1
             ListViewAccounts.SelectedItem = clicked;
             ListViewAccounts.ScrollIntoView(clicked);
             ListViewAccounts.Focus();
+            PopupNotification.Visibility = Visibility.Visible;
+        }
+        private void ButtonDeleteYes_Click(object sender, RoutedEventArgs e)
+        {
             Account accDel = ListViewAccounts.SelectedItem as Account;
             LauncherCredentials.DeleteUser(accDel.Username, accDel.AppId);
             accounts.Remove(accDel);
+            PopupNotification.Visibility = Visibility.Hidden;
+        }
+        private void ButtonDeleteNo_Click(object sender, RoutedEventArgs e)
+        {
+            PopupNotification.Visibility = Visibility.Hidden;
         }
 
+        //
+        //Button Create/Add Click
+        //
         private void ButtonCreate_Click(object sender, RoutedEventArgs e)
         {
-            if(LauncherCredentials.GetUser(textboxUsername.Text, comboBoxApp.SelectedIndex) == null)
+            if (LauncherCredentials.GetUser(textboxUsername.Text, comboBoxApp.SelectedIndex) == null)
             {
                 LauncherCredentials.CreateUser(textboxUsername.Text, passwordboxPassword.Password, textboxEmail.Text, comboBoxApp.SelectedIndex, 0);
                 PopupCreate.Visibility = Visibility.Hidden;
@@ -212,6 +251,14 @@ namespace WpfApp1
             //Edit App ComboBox
             int selectedIndex = comboBoxApp.SelectedIndex;
             Console.WriteLine(selectedIndex);
+        }
+
+        //
+        //Image Play
+        //
+        private void ImagePlay_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            PopupNotification.Visibility = Visibility.Visible;
         }
 
         //
@@ -233,18 +280,27 @@ namespace WpfApp1
 
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (LauncherCredentials.GetUser(textboxUsernameEdit.Text, comboBoxAppEdit.SelectedIndex) == null)
+            if (textboxUsernameEdit.Text.Length >= 1 && passwordboxPasswordEdit.Text.Length >= 1 && textboxEmailEdit.Text.Length >= 1 && comboBoxAppEdit.SelectedIndex != -1)
             {
-                Account accEdit = ListViewAccounts.SelectedItem as Account;
-                LauncherCredentials.EditUser(accEdit.Username, accEdit.AppId, textboxUsernameEdit.Text, passwordboxPasswordEdit.Text, textboxEmailEdit.Text, comboBoxAppEdit.SelectedIndex, accEdit.Fav);
-                accounts.Remove(accEdit);
-                PopupEdit.Visibility = Visibility.Hidden;
-                UpdateListView();
+                if (LauncherCredentials.GetUser(textboxUsernameEdit.Text, comboBoxAppEdit.SelectedIndex) == null)
+                {
+                    Account accEdit = ListViewAccounts.SelectedItem as Account;
+                    LauncherCredentials.EditUser(accEdit.Username, accEdit.AppId, textboxUsernameEdit.Text, passwordboxPasswordEdit.Text, textboxEmailEdit.Text, comboBoxAppEdit.SelectedIndex, accEdit.Fav);
+                    accounts.Remove(accEdit);
+                    PopupEdit.Visibility = Visibility.Hidden;
+                    UpdateListView();
+                }
+                else
+                {
+                    //error msg
+                    Console.WriteLine("User already exists");
+                    PopupEdit.Visibility = Visibility.Hidden;
+                }
             }
             else
             {
                 //error msg
-                Console.WriteLine("User exists already");
+                Console.WriteLine("Userdata can not be empty");
             }
         }
 
@@ -258,16 +314,76 @@ namespace WpfApp1
             ListViewAccounts.ScrollIntoView(clicked);
             ListViewAccounts.Focus();
             Account accEditPopup = ListViewAccounts.SelectedItem as Account;
-            if(accEditPopup.Fav < 4)
+            if (accEditPopup.Fav < 4)
             {
                 accEditPopup.Fav++;
-                Console.WriteLine("Group set to " + accEditPopup.Fav);
-                LauncherCredentials.EditUser(accEditPopup.Username, accEditPopup.AppId, accEditPopup.Username, accEditPopup.Password, accEditPopup.Email, accEditPopup.AppId, accEditPopup.Fav);
-            } else
+            }
+            else
             {
                 accEditPopup.Fav = 0;
-                Console.WriteLine("Group set to " + accEditPopup.Fav);
-                LauncherCredentials.EditUser(accEditPopup.Username, accEditPopup.AppId, accEditPopup.Username, accEditPopup.Password, accEditPopup.Email, accEditPopup.AppId, accEditPopup.Fav);
+            }
+            Console.WriteLine("Group set to " + accEditPopup.Fav);
+            LauncherCredentials.EditUser(accEditPopup.Username, accEditPopup.AppId, accEditPopup.Username, accEditPopup.Password, accEditPopup.Email, accEditPopup.AppId, accEditPopup.Fav);
+            UpdateListView();
+        }
+
+        private void ImageFav_MouseEnter(object sender, MouseEventArgs e)
+        {
+            object clicked = (e.OriginalSource as FrameworkElement).DataContext;
+            ListViewAccounts.SelectedItem = clicked;
+            ListViewAccounts.ScrollIntoView(clicked);
+            ListViewAccounts.Focus();
+            Account accEditPopup = ListViewAccounts.SelectedItem as Account;
+            Image image = sender as Image;
+            switch (accEditPopup.Fav)
+            {
+                    case 0: //Normal
+                        image.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/IconFavHover.png"));
+                        break;
+                    case 1: //Blue
+                        image.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/IconFavHoverBlue.png"));
+                        break;
+                    case 2: //Red
+                        image.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/IconFavHoverRed.png"));
+                        break;
+                    case 3: //Green
+                        image.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/IconFavHoverGreen.png"));
+                        break;
+                    case 4: //Yellow
+                        image.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/IconFavHoverYellow.png"));
+                    break;
+            }
+
+        }
+
+        private void ImageFav_MouseLeave(object sender, MouseEventArgs e)
+        {
+            object clicked = (e.OriginalSource as FrameworkElement).DataContext;
+            ListViewAccounts.SelectedItem = clicked;
+            ListViewAccounts.ScrollIntoView(clicked);
+            ListViewAccounts.Focus();
+            Account accEditPopup = ListViewAccounts.SelectedItem as Account;
+            Image image = sender as Image;
+            if (accEditPopup != null)
+            {
+                switch (accEditPopup.Fav)
+                {
+                    case 0: //Normal
+                        image.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/IconFav.png"));
+                        break;
+                    case 1: //Blue
+                        image.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/IconFavBlue.png"));
+                        break;
+                    case 2: //Red
+                        image.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/IconFavRed.png"));
+                        break;
+                    case 3: //Green
+                        image.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/IconFavGreen.png"));
+                        break;
+                    case 4: //Yellow
+                        image.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/IconFavYellow.png"));
+                        break;
+                }
             }
         }
     }
@@ -289,6 +405,7 @@ namespace WpfApp1
         private string username;
         private string password;
         private string email;
+        private string favstring;
         private int fav;
 
         public string App
@@ -348,6 +465,18 @@ namespace WpfApp1
                 {
                     this.email = value;
                     this.NotifyPropertyChanged("Email");
+                }
+            }
+        }
+        public string FavString
+        {
+            get { return this.favstring; }
+            set
+            {
+                if (this.favstring != value)
+                {
+                    this.favstring = value;
+                    this.NotifyPropertyChanged("FavString");
                 }
             }
         }
