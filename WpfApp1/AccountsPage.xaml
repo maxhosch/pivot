@@ -29,7 +29,7 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Height" Value="30"/>
             <Setter Property="Width" Value="30"/>
-            <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
         </Style>
 
         <!--TextBox-->
@@ -157,10 +157,57 @@
         <Style x:Key="CluebannerPasswordStyle" TargetType="Label">
             <Setter Property="Visibility" Value="Hidden"/>
             <Setter Property="Foreground" Value="Gray"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=passwordboxPassword, Path=Tag}" Value="False">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--CluebannerUsernameEdit-->
+        <Style x:Key="CluebannerUsernameEditStyle" TargetType="Label">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding ="{Binding ElementName=textboxUsernameEdit, Path=Text.Length}" Value="0"/>
+                        <!--<Condition Binding ="{Binding ElementName=textboxEmail, Path=IsFocused}" Value="False"/>-->
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Visibility" Value="Visible"/>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--CluebannerEmailEdit-->
+        <Style x:Key="CluebannerEmailEditStyle" TargetType="Label">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding ="{Binding ElementName=textboxEmailEdit, Path=Text.Length}" Value="0"/>
+                        <!--<Condition Binding ="{Binding ElementName=textboxEmail, Path=IsFocused}" Value="False"/>-->
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Visibility" Value="Visible"/>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--CluebannerPasswordEdit-->
+        <Style x:Key="CluebannerPasswordEditStyle" TargetType="Label">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=passwordboxPasswordEdit, Path=Tag}" Value="False">
                     <Setter Property="Visibility" Value="Visible"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -225,8 +272,8 @@
         <!--Image Sidebar-->
         <Style x:Key="ImageSidebarStyle" TargetType="Image">
             <Setter Property="Source" Value="pack://application:,,,/Resources/SortBy.png"/>
-            <Setter Property="Width" Value="120"/>
-            <Setter Property="Height" Value="60"/>
+            <Setter Property="Width" Value="96"/>
+            <Setter Property="Height" Value="48"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="ContextMenuService.IsEnabled" Value="False"/>
@@ -254,7 +301,7 @@
             <Setter Property="VirtualizingPanel.IsVirtualizing" Value="True"/>
             <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
         </Style>
-        
+
         <!--ListView Item Style-->
         <DataTemplate x:Key="AccountListDataTemplate" DataType="data:Accounts">
             <DockPanel HorizontalAlignment="Left" Height="100" Width="960">
@@ -263,9 +310,64 @@
                     <TextBlock Text="{Binding Username}" HorizontalAlignment="Left" FontSize="20" />
                     <TextBlock Text="{Binding Email}" HorizontalAlignment="Left" FontSize="12" />
                 </StackPanel>
-                <StackPanel Margin="0,20,0,0" HorizontalAlignment="Right" VerticalAlignment="Top">
-                    <Image Name="imageDelete" MouseDown="ImageDelete_MouseDown" Width="16" Height="16" RenderOptions.BitmapScalingMode="NearestNeighbor" Source="pack://application:,,,/Resources/IconDelete.png"/>
-                </StackPanel>
+                <DockPanel Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <StackPanel>
+                        <Image Name="imagePlay" MouseDown="ImagePlay_MouseDown" Margin="0,0,16,0" Width="32" Height="32" RenderOptions.BitmapScalingMode="NearestNeighbor">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Source" Value="pack://application:,,,/Resources/IconPlay.png"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Source" Value="pack://application:,,,/Resources/IconPlayHover.png"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                    </StackPanel>
+                    <StackPanel>
+                        <Image Name="imageFav" MouseDown="ImageFav_MouseDown" MouseEnter="ImageFav_MouseEnter" MouseLeave="ImageFav_MouseLeave" Margin="0,0,16,0" Width="32" Height="32" RenderOptions.BitmapScalingMode="NearestNeighbor">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Source" Value="{Binding FavString}"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Source" Value="pack://application:,,,/Resources/IconFavHover.png"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                    </StackPanel>
+                    <StackPanel>
+                        <Image Name="imageEdit" MouseDown="ImageEdit_MouseDown" Margin="0,0,16,0" Width="32" Height="32" RenderOptions.BitmapScalingMode="NearestNeighbor">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Source" Value="pack://application:,,,/Resources/IconEdit.png"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Source" Value="pack://application:,,,/Resources/IconEditHover.png"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                    </StackPanel>
+                    <StackPanel>
+                        <Image Name="imageDelete" MouseDown="ImageDelete_MouseDown" Width="32" Height="32" RenderOptions.BitmapScalingMode="NearestNeighbor">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Source" Value="pack://application:,,,/Resources/IconDelete.png"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Source" Value="pack://application:,,,/Resources/IconDeleteHover.png"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                    </StackPanel>
+                </DockPanel>
             </DockPanel>
         </DataTemplate>
 
@@ -318,6 +420,7 @@
                     <MenuItem x:Name="itemApp" Click="ItemApp_Click" Style="{StaticResource ContextMenuItemStyle}" Header="App"/>
                     <MenuItem x:Name="itemUsername" Click="ItemUsername_Click" Style="{StaticResource ContextMenuItemStyle}" Header="Username"/>
                     <MenuItem x:Name="itemEmail" Click="ItemEmail_Click" Style="{StaticResource ContextMenuItemStyle}" Header="Email"/>
+                    <MenuItem x:Name="itemFav" Click="ItemFav_Click" Style="{StaticResource ContextMenuItemStyle}" Header="Group"/>
                 </ContextMenu>
             </Image.ContextMenu>
         </Image>
@@ -331,20 +434,71 @@
                   SelectedItem="{Binding Value, ElementName=slider}">
         </ListView>
 
-        <!--Popup-->
-        <Grid x:Name="Popup" Visibility="Hidden">
-            <Rectangle x:Name="PopupBackground" Fill="#66FFFFFF" Width="1280" Height="635"/>
+        <!--PopupCreate-->
+        <Grid x:Name="PopupCreate" Visibility="Hidden">
+            <Rectangle x:Name="PopupBackground" Fill="#33FFFFFF" Width="1280" Height="635"/>
             <Image x:Name="PopupImage" Source="pack://application:,,,/Resources/BackgroundPopup.png" Width="400" Height="500" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
             <Image x:Name="imageClose" MouseDown="ImageClose_MouseDown" MouseEnter="ImageClose_MouseEnter" MouseLeave="ImageClose_MouseLeave" Style="{StaticResource ToolboxStyle}" Margin="370,-470,0,0" Source="Resources/Close.png"/>
-            <Label x:Name="labelPopupHeader" Style="{StaticResource LabelHeaderStyle}" Content="Create" Margin="490,120,0,0"/>
+            <Label x:Name="labelPopupHeader" Style="{StaticResource LabelHeaderStyle}" Content="Add" Margin="490,120,0,0"/>
 
             <TextBox x:Name="textboxUsername" Style="{StaticResource TextboxStyle}" Text="{Binding InputText,Mode=TwoWay}" Margin="0,-99,0,0"/>
             <Label x:Name="labelCuebannerUsername" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerUsernameStyle}" Content="Username" Target="{x:Reference textboxUsername}" Margin="520,-99,0,0"/>
             <Image x:Name="imageUserIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconUser.png" Margin="0,-99,270,0"/>
 
-            <TextBox x:Name="textboxEmail" Style="{StaticResource TextboxStyle}" Text="{Binding InputText,Mode=TwoWay}" Margin="0,-1,0,0"/>
-            <Label x:Name="labelCuebannerEmail" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerEmailStyle}" Content="Email" Target="{x:Reference textboxEmail}" Margin="520,-1,0,0"/>
-            <Image x:Name="imageEmailIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconEmail.png" Margin="0,-1,270,0"/>
+            <PasswordBox x:Name="passwordboxPassword" Style="{StaticResource PasswordboxStyle}" Margin="0,-1,0,0"/>
+            <Label x:Name="labelCuebannerPassword" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerPasswordStyle}" Content="Password" Target="{x:Reference passwordboxPassword}" Margin="520,-1,0,0"/>
+            <Image x:Name="imagePasswordIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconPassword.png" Margin="0,-1,270,0"/>
+
+            <TextBox x:Name="textboxEmail" Style="{StaticResource TextboxStyle}" Text="{Binding InputText,Mode=TwoWay}" Margin="0,99,0,0"/>
+            <Label x:Name="labelCuebannerEmail" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerEmailStyle}" Content="Email" Target="{x:Reference textboxEmail}" Margin="520,99,0,0"/>
+            <Image x:Name="imageEmailIcon" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconEmail.png" Margin="0,99,270,0"/>
+
+            <Button x:Name="buttonCreate" Click="ButtonCreate_Click" Style="{StaticResource ButtonStyle}" Content="Add Account" HorizontalAlignment="Center" Margin="0,0,0,90"/>
+            <ComboBox x:Name="comboBoxApp" Margin="0,250,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBoxItem>Steam</ComboBoxItem>
+                <ComboBoxItem>Origin</ComboBoxItem>
+                <ComboBoxItem>Uplay</ComboBoxItem>
+                <ComboBoxItem>League Of Legends</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+        <!--PopupEdit-->
+        <Grid x:Name="PopupEdit" Visibility="Hidden">
+            <Rectangle x:Name="PopupEditBackground" Fill="#33FFFFFF" Width="1280" Height="635"/>
+            <Image x:Name="PopupEditImage" Source="pack://application:,,,/Resources/BackgroundPopup.png" Width="400" Height="500" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+            <Image x:Name="imageCloseEdit" MouseDown="ImageClose_MouseDown" MouseEnter="ImageClose_MouseEnter" MouseLeave="ImageClose_MouseLeave" Style="{StaticResource ToolboxStyle}" Margin="370,-470,0,0" Source="Resources/Close.png"/>
+            <Label x:Name="labelPopupEditHeader" Style="{StaticResource LabelHeaderStyle}" Content="Edit" Margin="490,120,0,0"/>
+
+            <TextBox x:Name="textboxUsernameEdit" Style="{StaticResource TextboxStyle}" Text="{Binding InputText,Mode=TwoWay}" Margin="0,-99,0,0"/>
+            <Label x:Name="labelCuebannerUsernameEdit" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerUsernameEditStyle}" Content="Username" Target="{x:Reference textboxUsernameEdit}" Margin="520,-99,0,0"/>
+            <Image x:Name="imageUserIconEdit" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconUser.png" Margin="0,-99,270,0"/>
+
+            <TextBox x:Name="passwordboxPasswordEdit" Style="{StaticResource TextboxStyle}" Margin="0,-1,0,0"/>
+            <Label x:Name="labelCuebannerPasswordEdit" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerPasswordEditStyle}" Content="Password" Target="{x:Reference passwordboxPasswordEdit}" Margin="520,-1,0,0"/>
+            <Image x:Name="imagePasswordIconEdit" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconPassword.png" Margin="0,-1,270,0"/>
+
+            <TextBox x:Name="textboxEmailEdit" Style="{StaticResource TextboxStyle}" Text="{Binding InputText,Mode=TwoWay}" Margin="0,99,0,0"/>
+            <Label x:Name="labelCuebannerEmailEdit" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerEmailEditStyle}" Content="Email" Target="{x:Reference textboxEmailEdit}" Margin="520,99,0,0"/>
+            <Image x:Name="imageEmailIconEdit" Style="{StaticResource TextboxIconStyle}" Source="pack://application:,,,/Resources/IconEmail.png" Margin="0,99,270,0"/>
+
+            <Button x:Name="buttonEdit" Click="ButtonEdit_Click" Style="{StaticResource ButtonStyle}" Content="Edit Account" HorizontalAlignment="Center" Margin="0,0,0,90"/>
+            <ComboBox x:Name="comboBoxAppEdit" Margin="0,250,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBoxItem>Steam</ComboBoxItem>
+                <ComboBoxItem>Origin</ComboBoxItem>
+                <ComboBoxItem>Uplay</ComboBoxItem>
+                <ComboBoxItem>League Of Legends</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+        <!--PopupNotification-->
+        <Grid x:Name="PopupNotification" Visibility="Hidden">
+            <Rectangle x:Name="PopupNotificationBackground" Fill="#33FFFFFF" Width="1280" Height="635"/>
+            <Image x:Name="PopupNotificationImage" Source="pack://application:,,,/Resources/BackgroundPopupNotification.png" Width="400" Height="250" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+            <Image x:Name="imageCloseNotification" MouseDown="ImageClose_MouseDown" MouseEnter="ImageClose_MouseEnter" MouseLeave="ImageClose_MouseLeave" Style="{StaticResource ToolboxStyle}" Margin="370,-220,0,0" Source="Resources/Close.png"/>
+            <Label x:Name="labelPopupNotificationHeader" Style="{StaticResource LabelHeaderStyle}" Content="Delete" Margin="490,205,0,0"/>
+
+            <Label x:Name="labelCuebannerUsernameNotification" MouseLeftButtonUp="LabelCuebanner_MouseLeftButtonUp" Style="{StaticResource CluebannerUsernameEditStyle}" Content="Are you sure you want to delete this account?" Target="{x:Reference textboxUsernameEdit}" Margin="520,-39,0,0"/>
+
+            <Button x:Name="buttonDeleteYes" Click="ButtonDeleteYes_Click" Style="{StaticResource ButtonStyle}" Width="130" Content="Yes" HorizontalAlignment="Center" Margin="190,0,0,215"/>
+            <Button x:Name="buttonDeleteNo" Click="ButtonDeleteNo_Click" Style="{StaticResource ButtonStyle}" Width="130" Content="No" HorizontalAlignment="Center" Margin="-190,0,0,215"/>
         </Grid>
     </Grid>
 </Page>

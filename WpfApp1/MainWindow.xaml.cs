@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -81,6 +82,195 @@ namespace WpfApp1
         {
             this.imageMinimize.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Minimize.png"));
             
+        }
+    }
+
+    namespace LauncherHandling
+    {
+        public interface ThirdPartyLauncher
+        {
+            void StartObj();
+            void StartObj(LocalAuth.User user);
+            void StartGameObj(LocalAuth.User user/*And a Game object*/);
+            void StopObj();
+        }
+
+        public class Handler
+        {
+            private static Handler handler;
+
+            private Handler()
+            {
+                Steam.StartUp();
+            }
+
+            public static void Init()
+            {
+                if(handler == null)
+                {
+                    handler = new Handler();
+                }
+            }
+
+            public static void StartLauncher(LocalAuth.User user)
+            {
+                switch (user.App)
+                {
+                    case (int)LauncherCredentials.Apps.Steam:
+                        {
+                            Steam.Start(user);
+                            break;
+                        }
+                }
+            }
+
+            public static void StartGame(LocalAuth.User user)
+            {
+                switch (user.App)
+                {
+                    case (int)LauncherCredentials.Apps.Steam:
+                        {
+                            Steam.StartGame(user);
+                            break;
+                        }
+                }
+            }
+
+            public static void StopLauncher(int app)
+            {
+                switch (app)
+                {
+                    case (int)LauncherCredentials.Apps.Steam:
+                        {
+                            Steam.Stop();
+                            break;
+                        }
+                }
+            }
+        }
+
+        public class Steam : ThirdPartyLauncher
+        {
+            private static Steam steam;
+            private Process process;
+            private LocalAuth.User user;
+
+            private Steam()
+            {
+
+            }
+
+            private Steam(Process proc)
+            {
+                process = proc;
+                user = null;
+            }
+
+            public static void StartUp()
+            {
+                if(steam == null)
+                {
+                    Process[] procs = Process.GetProcessesByName("steam");
+                    if (procs.Length == 1)
+                    {
+                        Console.WriteLine("Steam already running...");
+                        Console.WriteLine(procs[0]);
+                        steam = new Steam(procs[0]);
+                        if(steam.process != null)
+                        {
+                            Console.WriteLine("Procss is unequal to null");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Process is equal to null");
+                        }
+                    }
+                    else if(procs.Length != 0)
+                    {
+                        //raise steam process exception
+                    }
+                    else
+                    {
+                        steam = new Steam();
+                    }
+                }
+            }
+
+            public void StartObj()
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                startInfo.FileName = "C:\\Program Files (x86)\\Steam\\Steam.exe";
+                process = new Process();
+                process.StartInfo = startInfo;
+                process.Start();
+            }
+
+            public static void Start(LocalAuth.User user)
+            {
+                steam.StopObj();
+                steam.StartObj(user);
+            }
+
+            public void StartObj(LocalAuth.User user)
+            {
+                if(this.user != null)
+                {
+                    if (user.Name != this.user.Name)
+                    {
+                        ProcessStartInfo startInfo = new ProcessStartInfo();
+                        startInfo.FileName = "C:\\Program Files (x86)\\Steam\\Steam.exe";
+                        startInfo.Arguments = String.Format("-login {0} {1}", user.Name, user.Password);
+                        process = new Process();
+                        this.user = user;
+                        process.StartInfo = startInfo;
+                        process.Start();
+                    }
+                    else
+                    {
+                        StartObj();
+                    }
+                }
+                else
+                {
+                    ProcessStartInfo startInfo = new ProcessStartInfo();
+                    startInfo.FileName = "C:\\Program Files (x86)\\Steam\\Steam.exe";
+                    startInfo.Arguments = String.Format("-login {0} {1}", user.Name, user.Password);
+                    process = new Process();
+                    this.user = user;
+                    process.StartInfo = startInfo;
+                    process.Start();
+                }
+            }
+
+            public static void StartGame(LocalAuth.User user/*And a game object*/)
+            {
+                steam.StartGameObj(user);
+            }
+
+            public void StartGameObj(LocalAuth.User user)
+            {
+                throw new NotImplementedException();
+            }
+
+            public static void Stop()
+            {
+                steam.StopObj();
+            }
+
+            public void StopObj()
+            {
+                if (process != null)
+                {
+                    try
+                    {
+                        process.Kill();
+                    }
+                    catch(InvalidOperationException e)
+                    {
+                        Console.WriteLine(String.Format("Exception {0} caught", e.Message));
+                    }
+                }
+            }
         }
     }
 
@@ -468,16 +658,26 @@ namespace WpfApp1
     {
         public class LauncherCredentials : XmlDocument
         {
-            enum Apps { Steam, Origin, Uplay, Lol };
+            public enum Apps { Steam, Origin, Uplay, Lol };
+            private static LauncherCredentials Creds;
+            private string FileName;
 
-            public LauncherCredentials()
+            private LauncherCredentials()
             {
                 XmlDeclaration xmlDeclaration = this.CreateXmlDeclaration("1.0", "UTF-8", null);
                 XmlElement root = this.CreateElement("Users");
                 this.InsertAfter(xmlDeclaration, root);
             }
 
-            public LauncherCredentials(string fileName)
+            public static void CreateLauncherCredentials()
+            {
+                if(LauncherCredentials.Creds == null)
+                {
+                    LauncherCredentials.Creds = new LauncherCredentials();
+                }
+            }
+
+            private LauncherCredentials(string fileName)
             {
                 if (File.Exists(fileName))
                 {
@@ -492,9 +692,29 @@ namespace WpfApp1
                     this.AppendChild(Users);
                     this.Save(fileName);
                 }
+                this.FileName = fileName;
             }
 
-            public User[] GetAllUsers()
+            public static void CreateLauncherCredentials(string filename)
+            {
+                if(LauncherCredentials.Creds == null)
+                {
+                    LauncherCredentials.Creds = new LauncherCredentials(filename);
+                }
+            }
+
+            private void SaveObj()
+            {
+                this.Save(this.FileName);
+                Console.WriteLine("Save to " + FileName);
+            }
+
+            public static void Save()
+            {
+                LauncherCredentials.Creds.SaveObj();
+            }
+
+            private User[] GetAllUsersObj()
             {
                 User[] Users;
 
@@ -505,14 +725,20 @@ namespace WpfApp1
                 foreach (XmlNode XmlUser in XmlUsers)
                 {
                     int.TryParse(XmlUser.Attributes.GetNamedItem("App").InnerText, out int UserApp);
-                    Users[Counter] = new User(XmlUser.FirstChild.InnerText, XmlUser.LastChild.InnerText, UserApp);
+                    int.TryParse(XmlUser.Attributes.GetNamedItem("Fav").InnerText, out int UserFav);
+                    Users[Counter] = new User(XmlUser.SelectSingleNode("Name").InnerText, XmlUser.SelectSingleNode("Password").InnerText, XmlUser.SelectSingleNode("Email").InnerText, UserApp, UserFav);
                     Counter++;
                 }
 
                 return Users;
             }
 
-            public User[] GetAllUsers(int app)
+            public static User[] GetAllUsers()
+            {
+                return LauncherCredentials.Creds.GetAllUsersObj();
+            }
+
+            private User[] GetAllUsersObj(int app)
             {
                 User[] Users;
 
@@ -535,7 +761,8 @@ namespace WpfApp1
                     if (XmlUser.Attributes.GetNamedItem("App").InnerText == app.ToString())
                     {
                         int.TryParse(XmlUser.Attributes.GetNamedItem("App").InnerText, out int UserApp);
-                        Users[Counter] = new User(XmlUser.FirstChild.InnerText, XmlUser.LastChild.InnerText, UserApp);
+                        int.TryParse(XmlUser.Attributes.GetNamedItem("Fav").InnerText, out int UserFav);
+                        Users[Counter] = new User(XmlUser.SelectSingleNode("Name").InnerText, XmlUser.SelectSingleNode("Password").InnerText, XmlUser.SelectSingleNode("Email").InnerText, UserApp, UserFav);
                         Counter++;
                     }
                 }
@@ -543,7 +770,12 @@ namespace WpfApp1
                 return Users;
             }
 
-            public User[] GetAllUsers(string name)
+            public static User[] GetAllUsers(int app)
+            {
+                return LauncherCredentials.Creds.GetAllUsersObj(app);
+            }
+
+            private User[] GetAllUsersObj(string name)
             {
                 User[] Users;
 
@@ -566,7 +798,8 @@ namespace WpfApp1
                     if (XmlUser.FirstChild.InnerText == name)
                     {
                         int.TryParse(XmlUser.Attributes.GetNamedItem("App").InnerText, out int UserApp);
-                        Users[Counter] = new User(XmlUser.FirstChild.InnerText, XmlUser.LastChild.InnerText, UserApp);
+                        int.TryParse(XmlUser.Attributes.GetNamedItem("Fav").InnerText, out int UserFav);
+                        Users[Counter] = new User(XmlUser.SelectSingleNode("Name").InnerText, XmlUser.SelectSingleNode("Password").InnerText, XmlUser.SelectSingleNode("Email").InnerText, UserApp, UserFav);
                         Counter++;
                     }
                 }
@@ -574,42 +807,117 @@ namespace WpfApp1
                 return Users;
             }
 
-            public void CreateUser(string username, string password, int app)
+            public static User[] GetAllUsers(string name)
             {
+                return LauncherCredentials.Creds.GetAllUsersObj(name);
+            }
+
+            private void CreateUserObj(string username, string password, string email, int app, int fav)
+            {
+                XmlNode Users = this.GetElementsByTagName("Users")[0];
                 XmlElement NewUser = this.CreateElement("User");
                 NewUser.SetAttribute("App", app.ToString());
+                NewUser.SetAttribute("Fav", fav.ToString());
                 XmlElement Name = this.CreateElement("Name");
                 Name.InnerText = username;
                 NewUser.AppendChild(Name);
                 XmlElement Password = this.CreateElement("Password");
                 Password.InnerText = password;
                 NewUser.AppendChild(Password);
+                XmlElement Email = this.CreateElement("Email");
+                Email.InnerText = email;
+                NewUser.AppendChild(Email);
+                Users.AppendChild(NewUser);
             }
 
-            public User GetFirstUser(string name)
+            public static void CreateUser(string username, string password, string email, int app, int fav)
+            {
+                LauncherCredentials.Creds.CreateUserObj(username, password, email, app, fav);
+                Save();
+            }
+
+            private void DeleteUserObj(string username, int app)
+            {
+                XmlNode Users = this.SelectSingleNode("Users");
+                foreach(XmlNode User in Users.SelectNodes("User"))
+                {
+                    if(User.SelectSingleNode("Name").InnerText == username && User.Attributes.GetNamedItem("App").InnerText == app.ToString())
+                    {
+                        Users.RemoveChild(User);
+                        break;
+                    }
+                }
+            }
+
+            public static void DeleteUser(string username, int app)
+            {
+                LauncherCredentials.Creds.DeleteUserObj(username, app);
+                Save();
+            }
+
+            public static void EditUser(string username, int app, string newUsername, string password, string email, int newApp, int fav)
+            {
+                LauncherCredentials.Creds.DeleteUserObj(username, app);
+                LauncherCredentials.Creds.CreateUserObj(newUsername, password, email, newApp, fav);
+                Save();
+            }
+
+            private User GetFirstUserObj(string name)
             {
                 foreach (XmlNode XmlUser in this.GetElementsByTagName("User"))
                 {
                     if (XmlUser.FirstChild.InnerText == name)
                     {
                         int.TryParse(XmlUser.Attributes.GetNamedItem("App").InnerText, out int UserApp);
-                        return new User(XmlUser.FirstChild.InnerText, XmlUser.LastChild.InnerText, UserApp);
+                        int.TryParse(XmlUser.Attributes.GetNamedItem("Fav").InnerText, out int UserFav);
+                        return new User(XmlUser.SelectSingleNode("Name").InnerText, XmlUser.SelectSingleNode("Password").InnerText, XmlUser.SelectSingleNode("Email").InnerText, UserApp, UserFav);
                     }
                 }
                 throw new UnknownUserException(String.Format("A User with name {0} could not be found.", name));
             }
 
-            public User GetFirstUser(int app)
+            public static User GetFirstUser(string name)
+            {
+                return LauncherCredentials.Creds.GetFirstUserObj(name);
+            }
+
+            private User GetFirstUserObj(int app)
             {
                 foreach (XmlNode XmlUser in this.GetElementsByTagName("User"))
                 {
                     if (XmlUser.Attributes.GetNamedItem("App").InnerText == app.ToString())
                     {
                         int.TryParse(XmlUser.Attributes.GetNamedItem("App").InnerText, out int UserApp);
-                        return new User(XmlUser.FirstChild.InnerText, XmlUser.LastChild.InnerText, UserApp);
+                        int.TryParse(XmlUser.Attributes.GetNamedItem("Fav").InnerText, out int UserFav);
+                        return new User(XmlUser.SelectSingleNode("Name").InnerText, XmlUser.SelectSingleNode("Password").InnerText, XmlUser.SelectSingleNode("Email").InnerText, UserApp, UserFav);
                     }
                 }
                 throw new UnknownUserException(String.Format("A User with app {0} could not be found.", app.ToString()));
+            }
+
+            public static User GetFirstUser(int app)
+            {
+                return LauncherCredentials.Creds.GetFirstUserObj(app);
+            }
+
+            private User GetUserObj(string username, int app)
+            {
+                XmlNode Users = this.SelectSingleNode("Users");
+                foreach (XmlNode User in Users.SelectNodes("User"))
+                {
+                    if (User.SelectSingleNode("Name").InnerText == username && User.Attributes.GetNamedItem("App").InnerText == app.ToString())
+                    {
+                        int.TryParse(User.Attributes.GetNamedItem("App").InnerText, out int UserApp);
+                        int.TryParse(User.Attributes.GetNamedItem("Fav").InnerText, out int UserFav);
+                        return new User(User.SelectSingleNode("Name").InnerText, User.SelectSingleNode("Password").InnerText, User.SelectSingleNode("Email").InnerText, UserApp, UserFav);
+                    }
+                }
+                return null;
+            }
+
+            public static User GetUser(string username, int app)
+            {
+                return LauncherCredentials.Creds.GetUserObj(username, app);
             }
         }
 
@@ -618,17 +926,31 @@ namespace WpfApp1
             public string Name { get; private set; }
             public string Password { get; private set; }
             public int App { get; private set; }
+            public string Email { get; private set; }
+            public int Fav { get; set; }
 
             public User()
             {
 
             }
 
-            public User(string name, string password, int app)
+            public User(Account acc)
             {
-                Name = name;
-                Password = password;
-                App = app;
+                this.Name = acc.Username;
+                this.Password = acc.Password;
+                this.App = acc.AppId;
+                this.Email = acc.Email;
+                this.Fav = acc.Fav;
+            }
+
+            public User(string name, string password, string email, int app, int fav)
+            {
+                this.Name = name;
+                this.Password = password;
+                this.App = app;
+                this.Email = email;
+                this.Fav = fav;
+
             }
         }
 

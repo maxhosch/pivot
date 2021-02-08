@@ -263,5 +263,45 @@
   <ItemGroup>
     <Resource Include="Resources\BackgroundPopup.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconEdit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconFav.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconEditHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconDeleteHover.png" />
+    <Resource Include="Resources\IconFavHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconUplay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconLol.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconFavBlue.png" />
+    <Resource Include="Resources\IconFavGreen.png" />
+    <Resource Include="Resources\IconFavRed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconFavHoverBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconFavHoverGreen.png" />
+    <Resource Include="Resources\IconFavHoverRed.png" />
+    <Resource Include="Resources\IconFavHoverYellow.png" />
+    <Resource Include="Resources\IconFavYellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconPlay.png" />
+    <Resource Include="Resources\IconPlayHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BackgroundPopupNotification.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp1.LocalAuth;
+using WpfApp1.LauncherHandling;
 
 namespace WpfApp1
 {
@@ -26,7 +27,9 @@ namespace WpfApp1
         {
             InitializeComponent();
             SwitchActiveTab(1);
-            LoadAccounts();
+            LauncherCredentials.CreateLauncherCredentials("Accounts.xml");
+            //LoadAccounts();
+            Handler.Init();
         }
 
         //
@@ -163,14 +166,6 @@ namespace WpfApp1
                     Console.WriteLine("Something is wrong");
                     break;
             }
-        }
-
-        //
-        //Load Accounts
-        //
-        private void LoadAccounts()
-        {
-            new LauncherCredentials("Accounts.xml");
         }
     }
 }
